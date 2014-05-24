@@ -1,5 +1,31 @@
 
 $(document).ready(function(){
+shortcut.add("Ctrl+Shift+X",function() {
+var word = getSelectionHtml();
+$.ajax({
+    type: "POST",
+    url: "http://www.morfix.co.il/" + word,
+    //data: "{empid: " + empid + "}",
+    //contentType: "application/json; charset=utf-8",
+    dataType: "text",
+    success: function(result) {
+      var doc = document.implementation.createHTMLDocument (result, 'html',  null);
+      doc.documentElement.innerHTML = result;
+        //console.log(result);
+      var elements = doc.getElementsByClassName("translation_he");
+      //alert(elements[0].innerHTML);
+	webkitNotifications.requestPermission();
+	var notification = webkitNotifications.createNotification(
+	  'note.png',  // icon url - can be relative
+	  '',  // notification title
+          elements[0].innerHTML
+	  
+	);
+	notification.show();
+    }
+});
+//  alert(getSelectionHtml());
+});
 
 $.ajax({
     type: "POST",
@@ -30,7 +56,8 @@ function onLoadResult(result) {
 	for (var word in obj) {
             console.log(word);
 	    //new_body = new_body.replace(word, "<a href='' class='divid' title='" + obj[word] + "' style='background:yellow; color: red; font-weight: bold'>" + word + "</a>");
-new_body = new_body.replace(word,"<a id='" + word + "' class='divid' href='javascript:void(0)' onClick='go2(this)' title='" + obj[word] + "' style='background:yellow; color: red; font-weight: bold'>" + word + "</a>");
+            new_body = new_body.replace(word,"<a id='" + word + "' class='divid' href='javascript:void(0)' onClick='go2(this)' title='" + obj[word] + "' style='background:yellow; color: red; font-weight: bold'>" + word + "</a>");
+            //wrapWord(new_body, word);
 	}
     }
     document.body.innerHTML = new_body;
@@ -115,7 +142,7 @@ chrome.extension.onMessage.addListener(function(request, sender, sendResponse) {
     }
     return false;   // <-- I do NOT intend to call `sendResponse`
 });
-var port = chrome.runtime.connect();
+//var port = chrome.runtime.connect();
 
 window.addEventListener("message", function(event) {
   // We only accept messages from ourselves
@@ -142,7 +169,61 @@ $.ajax({
         alert(result);
     }
 });
-    port.postMessage(event.data.text);
+    //port.postMessage(event.data.text);
   }
 }, false);
+
+
+function wrapWord(el, word)
+{
+    var expr = new RegExp(word, "i");
+    var nodes = [].slice.call(el.childNodes, 0);
+    for (var i = 0; i < nodes.length; i++)
+    {
+        var node = nodes[i];
+        if (node.nodeType == 3) // textNode
+        {
+            var matches = node.nodeValue.match(expr);
+            if (matches)
+            {
+                var parts = node.nodeValue.split(expr);
+                for (var n = 0; n < parts.length; n++)
+                {
+                    if (n)
+                    {
+                        var span = el.insertBefore(document.createElement("span"), node);
+                        span.appendChild(document.createTextNode(matches[n - 1]));
+                    }
+                    if (parts[n])
+                    {
+                        el.insertBefore(document.createTextNode(parts[n]), node);
+                    }
+                }
+                el.removeChild(node);
+            }
+        }
+        else
+        {
+            wrapWord(node, word);
+        }
+    }
+}
+function getSelectionHtml() {
+    var html = "";
+    if (typeof window.getSelection != "undefined") {
+        var sel = window.getSelection();
+        if (sel.rangeCount) {
+            var container = document.createElement("div");
+            for (var i = 0, len = sel.rangeCount; i < len; ++i) {
+                container.appendChild(sel.getRangeAt(i).cloneContents());
+            }
+            html = container.innerHTML;
+        }
+    } else if (typeof document.selection != "undefined") {
+        if (document.selection.type == "Text") {
+            html = document.selection.createRange().htmlText;
+        }
+    }
+    return html;
+}
 //$.ajax({type: \"POST\", url: \"http://localhost:80/1.html\", data: \"{empid: id}\", dataType: \"text\"});
