@@ -1,6 +1,15 @@
 
 $(document).ready(function(){
+$(document.body).dblclick(function() {
+     //         alert('double click ' + getSelectionHtml());
+abc();
+    });
 shortcut.add("Ctrl+Shift+X",function() {
+abc();
+//  alert(getSelectionHtml());
+});
+
+function abc() {
 var word = getSelectionHtml();
 $.ajax({
     type: "POST",
@@ -24,8 +33,8 @@ $.ajax({
 	notification.show();
     }
 });
-//  alert(getSelectionHtml());
-});
+
+}
 
 $.ajax({
     type: "POST",
