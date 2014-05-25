@@ -3,7 +3,7 @@ $(document).ready(function(){
 $(document.body).dblclick(function() {
      //         alert('double click ' + getSelectionHtml());
 var selection = getSelectionHtml();
-if (selection.indexOf("ת") != -1) {
+if (isHebrew(selection)) {
  alert('hebrew');}
 else {
 
@@ -240,5 +240,9 @@ function getSelectionHtml() {
         }
     }
     return html;
+}
+
+function isHebrew(text) {
+	return text.indexOf("א") != -1 || text.indexOf("ב") != -1;
 }
 //$.ajax({type: \"POST\", url: \"http://localhost:80/1.html\", data: \"{empid: id}\", dataType: \"text\"});
