@@ -32,25 +32,27 @@ $.ajax({
       doc.documentElement.innerHTML = result;
         //console.log(result);
       var elements;
+      var msg;
       if (!isHebrew(word)) {
         elements = doc.getElementsByClassName("translation_he");
+	msg = elements[0].innerHTML;
       } else {
         elements = doc.getElementsByClassName("definition");
-        alert($(doc).find(".definition span").text());
+        msg = $(doc).find(".definition span").text();
       }
       //alert(elements[0].innerHTML);
       webkitNotifications.requestPermission();
       var notification = webkitNotifications.createNotification(
-        'note.png',  // icon url - can be relative
+        'note',  // icon url - can be relative
         '',  // notification title
-        elements[0].innerHTML
+        msg
       );
       notification.show();
     }
 });
 
 }
-
+//setTimeout(function(){alert("Hello")}, 3000);
 $.ajax({
     type: "POST",
     url: "http://localhost:80/1.html",
@@ -252,6 +254,19 @@ function getSelectionHtml() {
 }
 
 function isHebrew(text) {
-	return text.indexOf("א") != -1 || text.indexOf("ב") != -1;
+	return text.indexOf("א") != -1 || text.indexOf("ב") != -1 
+	|| text.indexOf("ג") != -1 || text.indexOf("ד") != -1
+	|| text.indexOf("ה") != -1 || text.indexOf("ו") != -1
+	|| text.indexOf("ז") != -1 || text.indexOf("ח") != -1
+	|| text.indexOf("ט") != -1 || text.indexOf("י") != -1
+	|| text.indexOf("כ") != -1 || text.indexOf("ל") != -1
+	|| text.indexOf("מ") != -1 || text.indexOf("נ") != -1
+	|| text.indexOf("ס") != -1 || text.indexOf("ע") != -1
+	|| text.indexOf("פ") != -1 || text.indexOf("צ") != -1
+	|| text.indexOf("ק") != -1 || text.indexOf("ר") != -1
+	|| text.indexOf("ש") != -1 || text.indexOf("ת") != -1
+	|| text.indexOf("ף") != -1 || text.indexOf("ץ") != -1
+	|| text.indexOf("ן") != -1 || text.indexOf("ם") != -1
+	|| text.indexOf("ך") != -1; 
 }
 //$.ajax({type: \"POST\", url: \"http://localhost:80/1.html\", data: \"{empid: id}\", dataType: \"text\"});
