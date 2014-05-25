@@ -2,24 +2,28 @@
 $(document).ready(function(){
 $(document.body).dblclick(function() {
      //         alert('double click ' + getSelectionHtml());
-var selection = getSelectionHtml();
-if (isHebrew(selection)) {
- alert('hebrew');}
-else {
+	var selection = getSelectionHtml();
+	if (isHebrew(selection)) {
+	  console.log('hebrew');
+	abc("http://www.babylon.co.il/definition/"+selection+"/hebrew");
+}
+	else {
+	console.log('english');
+abc("http://www.morfix.co.il/"+selection);
+}
+});
 
-alert('english');}
-abc();
-    });
 shortcut.add("Ctrl+Shift+X",function() {
 abc();
 //  alert(getSelectionHtml());
 });
 
-function abc() {
+function abc(url) {
 var word = getSelectionHtml();
 $.ajax({
     type: "POST",
-    url: "http://www.morfix.co.il/" + word,
+    //url: "http://www.morfix.co.il/" + word,
+    url: url,
     //data: "{empid: " + empid + "}",
     //contentType: "application/json; charset=utf-8",
     dataType: "text",
@@ -27,16 +31,21 @@ $.ajax({
       var doc = document.implementation.createHTMLDocument (result, 'html',  null);
       doc.documentElement.innerHTML = result;
         //console.log(result);
-      var elements = doc.getElementsByClassName("translation_he");
+      var elements;
+      if (!isHebrew(word)) {
+        elements = doc.getElementsByClassName("translation_he");
+      } else {
+        elements = doc.getElementsByClassName("definition");
+        alert($(doc).find(".definition span").text());
+      }
       //alert(elements[0].innerHTML);
-	webkitNotifications.requestPermission();
-	var notification = webkitNotifications.createNotification(
-	  'note.png',  // icon url - can be relative
-	  '',  // notification title
-          elements[0].innerHTML
-	  
-	);
-	notification.show();
+      webkitNotifications.requestPermission();
+      var notification = webkitNotifications.createNotification(
+        'note.png',  // icon url - can be relative
+        '',  // notification title
+        elements[0].innerHTML
+      );
+      notification.show();
     }
 });
 
