@@ -2,6 +2,12 @@
 $(document).ready(function(){
 $(document.body).dblclick(function() {
      //         alert('double click ' + getSelectionHtml());
+var selection = getSelectionHtml();
+if (selection.indexOf("ת") != -1) {
+ alert('hebrew');}
+else {
+
+alert('english');}
 abc();
     });
 shortcut.add("Ctrl+Shift+X",function() {
