@@ -28,7 +28,7 @@ $(document).ready(function(){
     dataType: "text",
     success: function(result) {
       //console.log(result);
-      setTimeout(function() {onLoadResult(result)}, 15000);
+      setTimeout(function() {onLoadResult(result)}, 10);
     }
   });
 
@@ -43,23 +43,24 @@ $(document).ready(function(){
     words = JSON.parse(result);
     console.log(words);
     var new_body = document.body.innerHTML;
+    var replacement;
     for(var i = 0; i < words.length; i++) {
       var obj = words[i];
       //console.log(JSON.parse(response.responseText)[0]);
       for (var word in obj) {
         console.log(word);
         //new_body = new_body.replace(word, "<a href='' class='divid' title='" + obj[word] + "' style='background:yellow; color: red; font-weight: bold'>" + word + "</a>");
-        new_body = new_body.replace(word,"<a id='" + word + "' class='divid' href='javascript:void(0)' onClick='go2(this)' title='" + obj[word] + "' style='background:yellow; color: red; font-weight: bold'>" + word + "</a>");
-        /*
-        new_body = findAndReplaceDOMText(new_body, {
-          find: /jubilation/,
-          wrap: 'em'
-        });
-        */
+        //new_body = new_body.replace(word,"<a id='" + word + "' class='divid' href='javascript:void(0)' onClick='go2(this)' title='" + obj[word] + "' style='background:yellow; color: red; font-weight: bold'>" + word + "</a>");
+        replacement ="<a id='" + word + "' class='divid' href='javascript:void(0)' onClick='go2(this)' title='" + obj[word] + "' style='background:yellow; color: red; font-weight: bold'>" + word + "</a>";
+        //replaceText(word, replacement, document.body);
+        var elems = $('* >:contains(' + word + ')');
+        var elem = elems[elems.length-1];
+        //console.log(elem);
+        elem.innerHTML = elem.innerHTML.replace(word, replacement);
         //wrapWord(new_body, word);
       }
     }
-    document.body.innerHTML = new_body;
+    //document.body.innerHTML = new_body;
     addGlobalFunc();
     $('.divid').click(function(e) {
       e.preventDefault();
@@ -88,7 +89,6 @@ $(document).ready(function(){
     });
   }
 
-  /*
   setTimeout(function() {
 
     addGlobalLink('//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css');
@@ -100,8 +100,7 @@ $(document).ready(function(){
     addGlobalStyle('.arrow.left {left: 20%;}');
     addGlobalStyle('.arrow:after {content: "";position: absolute;left: 20px;top: -20px;width: 25px;height: 25px;box-shadow: 6px 5px 9px -9px black;-webkit-transform: rotate(45deg);-moz-transform: rotate(45deg);-ms-transform: rotate(45deg);-o-transform: rotate(45deg);tranform: rotate(45deg);}');
     addGlobalStyle('.arrow.top:after {bottom: -20px;top: auto;}');
-  }, 15000);
-  */
+  }, 1);
 });
 
 chrome.extension.onMessage.addListener(function(request, sender, sendResponse) {
@@ -145,6 +144,28 @@ window.addEventListener("message", function(event) {
   }
 }, false);
 
+function replaceText(oldText, newText, node){
+  node = node || document.body; // base node
+
+  var childs = node.childNodes, i = 0;
+
+  while(node = childs[i]){
+    if (node.nodeType == 3){ // text node found, do the replacement
+      if (node.textContent) {
+        node.textContent = node.textContent.replace(oldText, newText);
+        //node = node.innerHTML.replace(oldText, newText);
+        //console.log(node.parentNode);
+        //node.parentNode.innerHTML = node.parentNode.innerHTML.replace(oldText, newText);
+      } else { // support to IE
+        //node.nodeValue = node.nodeValue.replace(oldText, newText);
+        //alert("bbooo");
+      }
+    } else { // not a text mode, look forward
+      replaceText(oldText, newText, node);
+    }
+    i++;
+  }
+}
 
 
 //$.ajax({type: \"POST\", url: \"http://localhost:80/1.html\", data: \"{empid: id}\", dataType: \"text\"});
