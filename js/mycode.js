@@ -1,5 +1,14 @@
 $(document).ready(function(){
+
   $(document.body).dblclick(function() {
+    parseSelection();
+  });
+
+  shortcut.add("Ctrl+Shift+X",function() {
+    parseSelection();
+  });
+
+  function parseSelection() {
     var selection = getSelectionHtml();
     if (isHebrew(selection)) {
       console.log('hebrew');
@@ -9,12 +18,7 @@ $(document).ready(function(){
       console.log('english');
       parseWebDictionary("http://www.morfix.co.il/"+selection);
     }
-    return true;
-  });
-
-  shortcut.add("Ctrl+Shift+X",function() {
-    parseWebDictionary();
-  });
+  }
 
   $.ajax({
     type: "POST",
@@ -24,7 +28,7 @@ $(document).ready(function(){
     dataType: "text",
     success: function(result) {
       //console.log(result);
-      onLoadResult(result);
+      setTimeout(function() {onLoadResult(result)}, 15000);
     }
   });
 
@@ -46,6 +50,12 @@ $(document).ready(function(){
         console.log(word);
         //new_body = new_body.replace(word, "<a href='' class='divid' title='" + obj[word] + "' style='background:yellow; color: red; font-weight: bold'>" + word + "</a>");
         new_body = new_body.replace(word,"<a id='" + word + "' class='divid' href='javascript:void(0)' onClick='go2(this)' title='" + obj[word] + "' style='background:yellow; color: red; font-weight: bold'>" + word + "</a>");
+        /*
+        new_body = findAndReplaceDOMText(new_body, {
+          find: /jubilation/,
+          wrap: 'em'
+        });
+        */
         //wrapWord(new_body, word);
       }
     }
@@ -78,15 +88,20 @@ $(document).ready(function(){
     });
   }
 
-  addGlobalLink('//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css');
-  addGlobalLink('//resources/demos/style.css');
-  addGlobalStyle('.ui-tooltip, .arrow:after {background: black;border: 2px solid white;}');
-  addGlobalStyle('.ui-tooltip {padding: 10px 20px;color: white;border-radius: 20px;font: bold 14px "Helvetica Neue", Sans-Serif;text-transform: uppercase;box-shadow: 0 0 7px black;}');
-  addGlobalStyle('.arrow {width: 70px;height: 16px;overflow: hidden;position: absolute;left: 50%;margin-left: -35px;bottom: -16px;}');
-  addGlobalStyle('.arrow.top {top: -16px;bottom: auto;}');
-  addGlobalStyle('.arrow.left {left: 20%;}');
-  addGlobalStyle('.arrow:after {content: "";position: absolute;left: 20px;top: -20px;width: 25px;height: 25px;box-shadow: 6px 5px 9px -9px black;-webkit-transform: rotate(45deg);-moz-transform: rotate(45deg);-ms-transform: rotate(45deg);-o-transform: rotate(45deg);tranform: rotate(45deg);}');
-  addGlobalStyle('.arrow.top:after {bottom: -20px;top: auto;}');
+  /*
+  setTimeout(function() {
+
+    addGlobalLink('//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css');
+    //addGlobalLink('//resources/demos/style.css');
+    addGlobalStyle('.ui-tooltip, .arrow:after {background: black;border: 2px solid white;}');
+    addGlobalStyle('.ui-tooltip {padding: 10px 20px;color: white;border-radius: 20px;font: bold 14px "Helvetica Neue", Sans-Serif;text-transform: uppercase;box-shadow: 0 0 7px black;}');
+    addGlobalStyle('.arrow {width: 70px;height: 16px;overflow: hidden;position: absolute;left: 50%;margin-left: -35px;bottom: -16px;}');
+    addGlobalStyle('.arrow.top {top: -16px;bottom: auto;}');
+    addGlobalStyle('.arrow.left {left: 20%;}');
+    addGlobalStyle('.arrow:after {content: "";position: absolute;left: 20px;top: -20px;width: 25px;height: 25px;box-shadow: 6px 5px 9px -9px black;-webkit-transform: rotate(45deg);-moz-transform: rotate(45deg);-ms-transform: rotate(45deg);-o-transform: rotate(45deg);tranform: rotate(45deg);}');
+    addGlobalStyle('.arrow.top:after {bottom: -20px;top: auto;}');
+  }, 15000);
+  */
 });
 
 chrome.extension.onMessage.addListener(function(request, sender, sendResponse) {
