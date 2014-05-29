@@ -53,11 +53,18 @@ $(document).ready(function(){
         //new_body = new_body.replace(word,"<a id='" + word + "' class='divid' href='javascript:void(0)' onClick='go2(this)' title='" + obj[word] + "' style='background:yellow; color: red; font-weight: bold'>" + word + "</a>");
         replacement ="<a id='" + word + "' class='divid' href='javascript:void(0)' onClick='go2(this)' title='" + obj[word] + "' style='background:yellow; color: red; font-weight: bold'>" + word + "</a>";
         //replaceText(word, replacement, document.body);
-        var elems = $('* >:contains(' + word + ')');
-        var elem = elems[elems.length-1];
+        //var elems = $('* >:contains(' + word + ')');
+        //var elem = elems[elems.length-1];
         //console.log(elem);
-        elem.innerHTML = elem.innerHTML.replace(word, replacement);
+        //elem.innerHTML = elem.innerHTML.replace(word, replacement);
         //wrapWord(new_body, word);
+        matchText(document.body, new RegExp("\\b" + word + "\\b", "g"), function(node, match, offset) {
+            var span = document.createElement("span");
+            span.className = "search-term";
+            span.style = "color:yellow";
+            span.textContent = match;
+            node.parentNode.insertBefore(span, node.nextSibling);
+        });
       }
     }
     //document.body.innerHTML = new_body;
@@ -100,6 +107,7 @@ $(document).ready(function(){
     addGlobalStyle('.arrow.left {left: 20%;}');
     addGlobalStyle('.arrow:after {content: "";position: absolute;left: 20px;top: -20px;width: 25px;height: 25px;box-shadow: 6px 5px 9px -9px black;-webkit-transform: rotate(45deg);-moz-transform: rotate(45deg);-ms-transform: rotate(45deg);-o-transform: rotate(45deg);tranform: rotate(45deg);}');
     addGlobalStyle('.arrow.top:after {bottom: -20px;top: auto;}');
+    addGlobalStyle('.search-term {font-weight:bold;background-color:yellow}');
   }, 1);
 });
 
@@ -167,5 +175,49 @@ function replaceText(oldText, newText, node){
   }
 }
 
+var matchText = function(node, regex, callback, excludeElements) {
+
+
+    excludeElements || (excludeElements = ['script', 'style', 'iframe', 'cavas']);
+
+    var child = node.firstChild;
+
+    if (child == null)
+      return;
+
+    do {
+
+        switch (child.nodeType) {
+
+        case 1:
+            if (excludeElements.indexOf(child.tagName.toLowerCase()) > -1) {
+                continue;
+            }
+
+            matchText(child, regex, callback, excludeElements);
+            break;
+
+        case 3:
+           child.data.replace(regex, function(all) {
+                var args = [].slice.call(arguments),
+                    offset = args[args.length - 2],
+                    newTextNode = child.splitText(offset);
+
+                newTextNode.data = newTextNode.data.substr(all.length);
+
+                callback.apply(window, [child].concat(args));
+
+                child = newTextNode;
+
+            });
+            break;
+
+        }
+
+    } while (child = child.nextSibling);
+
+    return node;
+
+}
 
 //$.ajax({type: \"POST\", url: \"http://localhost:80/1.html\", data: \"{empid: id}\", dataType: \"text\"});
