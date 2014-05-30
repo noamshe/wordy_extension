@@ -61,7 +61,12 @@ $(document).ready(function(){
         matchText(document.body, new RegExp("\\b" + word + "\\b", "g"), function(node, match, offset) {
             var span = document.createElement("span");
             span.className = "search-term";
-            span.style = "color:yellow";
+//            span.onclick = "go2(this)";
+            //span.setAttribute('onclick', 'alert(\'hello\');');
+            span.setAttribute('onclick', 'go2(this)');
+            //span.href = "javascript:void(0)";
+            span.id = match;
+            span.title = obj[match];
             span.textContent = match;
             node.parentNode.insertBefore(span, node.nextSibling);
         });
@@ -73,7 +78,7 @@ $(document).ready(function(){
       e.preventDefault();
     });
 
-    var elements = document.getElementsByClassName("divid");
+    var elements = document.getElementsByClassName("search-term");
     //$( document.getElementsById("divid") ).tooltip({
     $( elements ).tooltip({
       //$( document ).tooltip({
@@ -107,7 +112,7 @@ $(document).ready(function(){
     addGlobalStyle('.arrow.left {left: 20%;}');
     addGlobalStyle('.arrow:after {content: "";position: absolute;left: 20px;top: -20px;width: 25px;height: 25px;box-shadow: 6px 5px 9px -9px black;-webkit-transform: rotate(45deg);-moz-transform: rotate(45deg);-ms-transform: rotate(45deg);-o-transform: rotate(45deg);tranform: rotate(45deg);}');
     addGlobalStyle('.arrow.top:after {bottom: -20px;top: auto;}');
-    addGlobalStyle('.search-term {font-weight:bold;background-color:yellow}');
+    addGlobalStyle('.search-term {cursor: pointer; text-decoration: none !important;font-weight:bold;background-color:yellow}');
   }, 1);
 });
 
@@ -148,6 +153,7 @@ window.addEventListener("message", function(event) {
         alert(result);
       }
     });
+
     //port.postMessage(event.data.text);
   }
 }, false);

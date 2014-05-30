@@ -132,7 +132,7 @@ function addGlobalFunc(scrpt) {
   var script = document.createElement('script');
   script.setAttribute('type', 'text/javascript');
   //script.text  = "alert('voila!');"
-  script.text  = "function go2(elem){ window.postMessage({ type: \"FROM_PAGE\", text: elem.id }, \"*\");};"
+  script.text  = "function go2(elem){ elem.className=\"\"; window.postMessage({ type: \"FROM_PAGE\", text: elem.id}, \"*\");};"
   //script.text  = "function go2(elem){ alert(elem.id) };"
   //script.text  = "function go2(){ $.ajax({type: \"POST\", url: \"http://localhost:80/1.html\", data: \"{empid: id}\", dataType: \"text\"});alert('Hello from inserted script.') };"
 
