@@ -2,41 +2,6 @@
  * Created by noam on 5/26/14.
  */
 
-function wrapWord(el, word)
-{
-  var expr = new RegExp(word, "i");
-  var nodes = [].slice.call(el.childNodes, 0);
-  for (var i = 0; i < nodes.length; i++)
-  {
-    var node = nodes[i];
-    if (node.nodeType == 3) // textNode
-    {
-      var matches = node.nodeValue.match(expr);
-      if (matches)
-      {
-        var parts = node.nodeValue.split(expr);
-        for (var n = 0; n < parts.length; n++)
-        {
-          if (n)
-          {
-            var span = el.insertBefore(document.createElement("span"), node);
-            span.appendChild(document.createTextNode(matches[n - 1]));
-          }
-          if (parts[n])
-          {
-            el.insertBefore(document.createTextNode(parts[n]), node);
-          }
-        }
-        el.removeChild(node);
-      }
-    }
-    else
-    {
-      wrapWord(node, word);
-    }
-  }
-}
-
 function getSelectionHtml() {
   var html = "";
   if (typeof window.getSelection != "undefined") {
@@ -125,16 +90,13 @@ function addGlobalLink(href) {
   style.href = href;
   head.appendChild(style);
 }
-function addGlobalFunc(scrpt) {
+function addOnclickFunctionalityGlobally() {
   var head, style;
   head = document.getElementsByTagName('head')[0];
   if (!head) { return; }
   var script = document.createElement('script');
   script.setAttribute('type', 'text/javascript');
-  //script.text  = "alert('voila!');"
   script.text  = "function go2(elem){ elem.className=\"\"; window.postMessage({ type: \"FROM_PAGE\", text: elem.id}, \"*\");};"
-  //script.text  = "function go2(elem){ alert(elem.id) };"
-  //script.text  = "function go2(){ $.ajax({type: \"POST\", url: \"http://localhost:80/1.html\", data: \"{empid: id}\", dataType: \"text\"});alert('Hello from inserted script.') };"
 
   head.appendChild(script);
 }

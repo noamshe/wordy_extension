@@ -49,22 +49,11 @@ $(document).ready(function(){
       //console.log(JSON.parse(response.responseText)[0]);
       for (var word in obj) {
         console.log(word);
-        //new_body = new_body.replace(word, "<a href='' class='divid' title='" + obj[word] + "' style='background:yellow; color: red; font-weight: bold'>" + word + "</a>");
-        //new_body = new_body.replace(word,"<a id='" + word + "' class='divid' href='javascript:void(0)' onClick='go2(this)' title='" + obj[word] + "' style='background:yellow; color: red; font-weight: bold'>" + word + "</a>");
-        replacement ="<a id='" + word + "' class='divid' href='javascript:void(0)' onClick='go2(this)' title='" + obj[word] + "' style='background:yellow; color: red; font-weight: bold'>" + word + "</a>";
-        //replaceText(word, replacement, document.body);
-        //var elems = $('* >:contains(' + word + ')');
-        //var elem = elems[elems.length-1];
-        //console.log(elem);
-        //elem.innerHTML = elem.innerHTML.replace(word, replacement);
-        //wrapWord(new_body, word);
+        //replacement ="<a id='" + word + "' class='divid' href='javascript:void(0)' onClick='go2(this)' title='" + obj[word] + "' style='background:yellow; color: red; font-weight: bold'>" + word + "</a>";
         matchText(document.body, new RegExp("\\b" + word + "\\b", "g"), function(node, match, offset) {
             var span = document.createElement("span");
             span.className = "search-term";
-//            span.onclick = "go2(this)";
-            //span.setAttribute('onclick', 'alert(\'hello\');');
             span.setAttribute('onclick', 'go2(this)');
-            //span.href = "javascript:void(0)";
             span.id = match;
             span.title = obj[match];
             span.textContent = match;
@@ -72,16 +61,14 @@ $(document).ready(function(){
         });
       }
     }
-    //document.body.innerHTML = new_body;
-    addGlobalFunc();
-    $('.divid').click(function(e) {
-      e.preventDefault();
-    });
+
+    addOnclickFunctionalityGlobally();
+//    $('.divid').click(function(e) {
+//      e.preventDefault();
+//    });
 
     var elements = document.getElementsByClassName("search-term");
-    //$( document.getElementsById("divid") ).tooltip({
     $( elements ).tooltip({
-      //$( document ).tooltip({
       position: {
         my: "center bottom-20",
         at: "center top",
@@ -158,72 +145,33 @@ window.addEventListener("message", function(event) {
   }
 }, false);
 
-function replaceText(oldText, newText, node){
-  node = node || document.body; // base node
-
-  var childs = node.childNodes, i = 0;
-
-  while(node = childs[i]){
-    if (node.nodeType == 3){ // text node found, do the replacement
-      if (node.textContent) {
-        node.textContent = node.textContent.replace(oldText, newText);
-        //node = node.innerHTML.replace(oldText, newText);
-        //console.log(node.parentNode);
-        //node.parentNode.innerHTML = node.parentNode.innerHTML.replace(oldText, newText);
-      } else { // support to IE
-        //node.nodeValue = node.nodeValue.replace(oldText, newText);
-        //alert("bbooo");
-      }
-    } else { // not a text mode, look forward
-      replaceText(oldText, newText, node);
-    }
-    i++;
-  }
-}
-
 var matchText = function(node, regex, callback, excludeElements) {
 
-
     excludeElements || (excludeElements = ['script', 'style', 'iframe', 'cavas']);
-
     var child = node.firstChild;
-
     if (child == null)
       return;
-
     do {
-
         switch (child.nodeType) {
-
         case 1:
             if (excludeElements.indexOf(child.tagName.toLowerCase()) > -1) {
                 continue;
             }
-
             matchText(child, regex, callback, excludeElements);
             break;
-
         case 3:
            child.data.replace(regex, function(all) {
                 var args = [].slice.call(arguments),
                     offset = args[args.length - 2],
                     newTextNode = child.splitText(offset);
-
                 newTextNode.data = newTextNode.data.substr(all.length);
-
                 callback.apply(window, [child].concat(args));
-
                 child = newTextNode;
-
             });
             break;
-
         }
-
     } while (child = child.nextSibling);
-
     return node;
-
 }
 
 //$.ajax({type: \"POST\", url: \"http://localhost:80/1.html\", data: \"{empid: id}\", dataType: \"text\"});
