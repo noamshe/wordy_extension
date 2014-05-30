@@ -22,7 +22,8 @@ $(document).ready(function(){
 
   $.ajax({
     type: "POST",
-    url: "http://localhost:80/1.html",
+    //url: "http://localhost:80/1.html",
+    url: "http://ec2-54-201-117-105.us-west-2.compute.amazonaws.com/1.html",
     //data: "{empid: " + empid + "}",
     //contentType: "application/json; charset=utf-8",
     dataType: "text",
