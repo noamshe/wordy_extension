@@ -57,7 +57,9 @@ $(document).ready(function(){
             span.setAttribute('onclick', 'go2(this)');
             span.id = match;
             span.title = obj[match];
-            span.textContent = match;
+            //span.textContent = match;
+            span.innerHTML = match + '<a style="cursor: pointer;"> x</a>';
+
             node.parentNode.insertBefore(span, node.nextSibling);
         });
       }
@@ -100,7 +102,7 @@ $(document).ready(function(){
     addGlobalStyle('.arrow.left {left: 20%;}');
     addGlobalStyle('.arrow:after {content: "";position: absolute;left: 20px;top: -20px;width: 25px;height: 25px;box-shadow: 6px 5px 9px -9px black;-webkit-transform: rotate(45deg);-moz-transform: rotate(45deg);-ms-transform: rotate(45deg);-o-transform: rotate(45deg);tranform: rotate(45deg);}');
     addGlobalStyle('.arrow.top:after {bottom: -20px;top: auto;}');
-    addGlobalStyle('.search-term {cursor: pointer; text-decoration: none !important;font-weight:bold;background-color:yellow}');
+    addGlobalStyle('.search-term {text-decoration: none !important;font-weight:bold;background-color:yellow;border: 2px solid gray; border-radius: 25px; padding-left: 5px; padding-right: 5px; color: gray;}');
   }, 1);
 });
 
