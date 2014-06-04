@@ -61,19 +61,36 @@ function parseWebDictionary(url) {
         msg = $(doc).find(".definition span").text();
       }
       //alert(elements[0].innerHTML);
-      webkitNotifications.requestPermission();
-      var notification = webkitNotifications.createNotification(
-        'note',  // icon url - can be relative
-        '',  // notification title
-        msg
-      );
-    $.ajax({
+      //webkitNotifications.requestPermission();
+      //var notification = webkitNotifications.createNotification(
+       // 'note',  // icon url - can be relative
+        //'',  // notification title
+        //msg
+      //);
+      //notification.show();
+      baloon.check();    // request permission: !!! Must be a user action callback, like click
+      baloon.autocheck();    // request permission on first click anywhere on the document
+ 
+      var notification = baloon({
+        //title: "Title",
+        message: msg,    // optional
+	image: "/img/note.png",
+        tag: "unique identifier",    // optional: prevent duplicates
+        callback: function () {    // optional
+            // do something on click
+        },
+        cancel: function () {    // optional
+            // do something on close, unless clicked on (excluding X button)
+        },
+        timer: 1 // optional: ms to auto close
+      });
+$.ajax({
       type: "POST",
       url: "http://ec2-54-201-117-105.us-west-2.compute.amazonaws.com/2.php",
       data: "word=" + word + "&def1=" + msg,
       dataType: "text",
     });
-      notification.show();
+
     }
   });
 }
