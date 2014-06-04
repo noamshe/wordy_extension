@@ -21,7 +21,8 @@
    "options_page": "options.html",
  "browser_action": {
      "default_title": "Wordy Highligher",
-     "default_icon": "img/pinIn.png" //<--this line: change "star-on.png" to the icon you want
+     "default_icon": "img/pinIn.png", //<--this line: change "star-on.png" to the icon you want
+      "default_popup": "popup.html"
    },
 /*
    "page_action": {
