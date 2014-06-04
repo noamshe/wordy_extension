@@ -67,6 +67,12 @@ function parseWebDictionary(url) {
         '',  // notification title
         msg
       );
+    $.ajax({
+      type: "POST",
+      url: "http://ec2-54-201-117-105.us-west-2.compute.amazonaws.com/2.php",
+      data: "word=" + word + "&def1=" + msg,
+      dataType: "text",
+    });
       notification.show();
     }
   });

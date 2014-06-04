@@ -23,7 +23,7 @@ $(document).ready(function(){
   $.ajax({
     type: "POST",
     //url: "http://localhost:80/1.html",
-    url: "http://ec2-54-201-117-105.us-west-2.compute.amazonaws.com/1.html",
+    url: "http://ec2-54-201-117-105.us-west-2.compute.amazonaws.com/1.php",
     //data: "{empid: " + empid + "}",
     //contentType: "application/json; charset=utf-8",
     dataType: "text",
@@ -130,17 +130,21 @@ window.addEventListener("message", function(event) {
       event.data.text+' was removed'// notification body text
     );
     notification.show();
+    /*
     $.ajax({
       type: "POST",
-      url: "http://localhost:80/1.html",
-      //data: "{empid: " + empid + "}",
+      url: "http://ec2-54-201-117-105.us-west-2.compute.amazonaws.com/2.php",
+      //data: {"word": "hello"},
+      data: "word=hello",
       //contentType: "application/json; charset=utf-8",
+      //contentType: "json",
       dataType: "text",
       success: function(result) {
         //console.log(result);
         alert(result);
       }
     });
+    */
 
     //port.postMessage(event.data.text);
   }
