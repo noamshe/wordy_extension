@@ -1,37 +1,38 @@
 {
-   "background": {
-      "page": "background.html"
-   },
-   "content_scripts": [ {
-      "all_frames": true,
-      "js": [ "js/jquery-1.10.2.js", "js/jquery-ui.js", "js/mycode.js", "js/commons.js", "js/shortcut.js", "js/findAndReplaceDOMText.js" ],
-      "matches": [ "http://*/*", "https://*/*", "file://*" ],
-      "run_at": "document_idle"
-   } ],
-   "content_security_policy": "script-src 'self' https://www.google.com https://secure.flickr.com; object-src 'self'",
-   "description": "Highlights, annotates, translates, full or quick references (eg: wordreference.com, wikipedia), speech, and more",
-   "icons": {
-      "128": "img/note.png",
-      "16": "img/note.png",
-      "48": "img/note.png"
-   },
-   "manifest_version": 2,
-   "minimum_chrome_version": "18",
-   "name": "Wordy Highlighter",
-   "options_page": "options.html",
- "browser_action": {
-     "default_title": "Wordy Highligher",
-     "default_icon": "img/pinIn.png" //<--this line: change "star-on.png" to the icon you want
-   },
-/*
-   "page_action": {
-      "default_icon": "img/16dirty.png",
-      "default_popup": "popup.html"
-   },
-*/
-   //"permissions": [ "\u003Call_urls>", "tts", "contextMenus", "tabs", "notifications" ],
-"permissions": [ "notifications" ],
-   "update_url": "http://clients2.google.com/service/update2/crx",
-   "version": "2.1.7.2",
-   "web_accessible_resources": [ "img/note.png", "img/ajax-loader.gif", "img/application-dock.png", "img/application-dock-180.png", "img/arrow-180-green.png", "img/arrow-circle-315.png", "img/arrow-green.png", "img/category.png", "img/chart_organisation.png", "img/chevron.png", "img/chevron-expand.png", "img/cross.png", "img/direction.png", "img/disambiguation.png", "img/exclamation.png", "img/exclamation-red.png", "img/external.png", "img/infocard.png", "img/locked.png", "img/navigation-green.png", "img/pinOut.png", "img/pinIn.png", "img/retweet.png", "img/tick-circle.png", "img/unlocked.png", "tip.html", "img/cross-small-5.png", "img/speaker-volume-low2.png", "img/flags/*.png", "img/wikimedia/skins-1.5/vector/images/external-link-ltr-icon.png", "img/navigation-000-button.png", "img/navigation-090-button.png", "img/navigation-180-button.png", "img/navigation-270-button.png", "img/globe.png", "img/branding/bing/bing.png", "img/branding/Flickr/flickr12.png", "img/branding/Google/small-logo.png", "img/branding/twitter/logo_twitter_bird_12_allblue.png", "img/branding/wikimedia/Small_icon_wikimedia.png", "img/branding/Yahoo/yahoo.png", "doc/releasenotes.txt" ]
+    "background": {
+        "page": "background.html"
+    },
+    "content_scripts": [ {
+        "all_frames": true,
+        "js": [ "js/jquery-1.10.2.js", "js/jquery-ui.js", "js/mycode.js", "js/commons.js", "js/shortcut.js", "js/findAndReplaceDOMText.js" ],
+        "matches": [ "http://*/*", "https://*/*", "file://*" ],
+        "run_at": "document_idle"
+    } ],
+    "content_security_policy": "script-src 'self' https://www.google.com https://secure.flickr.com; object-src 'self'",
+    "description": "Highlights, annotates, translates, full or quick references (eg: wordreference.com, wikipedia), speech, and more",
+    "icons": {
+        "128": "img/note.png",
+        "16": "img/note.png",
+        "48": "img/note.png"
+    },
+    "manifest_version": 2,
+    "minimum_chrome_version": "18",
+    "name": "Wordy Highlighter",
+    "options_page": "options.html",
+    "browser_action": {
+        "default_title": "Wordy Highligher",
+        "default_icon": "img/pinIn.png",
+        "default_popup": "popup.html"
+    },
+    /*
+     "page_action": {
+     "default_icon": "img/16dirty.png",
+     "default_popup": "popup.html"
+     },
+     */
+    //"permissions": [ "\u003Call_urls>", "tts", "contextMenus", "tabs", "notifications" ],
+    "permissions": [ "notifications", "storage" ],
+    "update_url": "http://clients2.google.com/service/update2/crx",
+    "version": "2.1.7.2",
+    "web_accessible_resources": [ "img/note.png", "img/ajax-loader.gif", "img/application-dock.png", "img/application-dock-180.png", "img/arrow-180-green.png", "img/arrow-circle-315.png", "img/arrow-green.png", "img/category.png", "img/chart_organisation.png", "img/chevron.png", "img/chevron-expand.png", "img/cross.png", "img/direction.png", "img/disambiguation.png", "img/exclamation.png", "img/exclamation-red.png", "img/external.png", "img/infocard.png", "img/locked.png", "img/navigation-green.png", "img/pinOut.png", "img/pinIn.png", "img/retweet.png", "img/tick-circle.png", "img/unlocked.png", "tip.html", "img/cross-small-5.png", "img/speaker-volume-low2.png", "img/flags/*.png", "img/wikimedia/skins-1.5/vector/images/external-link-ltr-icon.png", "img/navigation-000-button.png", "img/navigation-090-button.png", "img/navigation-180-button.png", "img/navigation-270-button.png", "img/globe.png", "img/branding/bing/bing.png", "img/branding/Flickr/flickr12.png", "img/branding/Google/small-logo.png", "img/branding/twitter/logo_twitter_bird_12_allblue.png", "img/branding/wikimedia/Small_icon_wikimedia.png", "img/branding/Yahoo/yahoo.png", "doc/releasenotes.txt" ]
 }
