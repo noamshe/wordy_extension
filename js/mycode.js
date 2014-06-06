@@ -92,6 +92,7 @@ $(document).ready(function () {
     });
   }
 
+  <div style="width: 200px; height: 515px; z-index: 5; position: absolute; top: 232px; left: 144px;"><div id="balloon" style="position: absolute; top: 0px; left: 0px;"></div></div>
   setTimeout(function () {
 
     addGlobalLink('//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css');

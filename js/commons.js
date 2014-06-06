@@ -93,11 +93,19 @@ var resultFunction1 = function(result, word) {
     },
     timer: 1 // optional: ms to auto close
   });
+
+  addWordToDB(word, msg, function(){});
+}
+
+function addWordToDB(word, definition, func) {
   $.ajax({
     type: "POST",
     url: "http://ec2-54-201-117-105.us-west-2.compute.amazonaws.com/2.php",
-    data: "word=" + word + "&def1=" + msg,
-    dataType: "text"
+    data: "word=" + word + "&def1=" + definition,
+    dataType: "text",
+    success: function() {
+      func();
+    }
   });
 }
 
