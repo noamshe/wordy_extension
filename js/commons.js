@@ -38,61 +38,84 @@ function isHebrew(text) {
     || text.indexOf("ך") != -1;
 }
 
-function parseWebDictionary(url) {
-  var word = getSelectionHtml();
+function parseSelection(selection, func) {
+  if (isHebrew(selection)) {
+    console.log('hebrew');
+    return parseWebDictionary("http://www.babylon.co.il/definition/" + selection + "/hebrew", selection, func);
+  }
+  else {
+    console.log('english');
+    return parseWebDictionary("http://www.morfix.co.il/" + selection, selection, func);
+  }
+}
+
+function parseResultDocument(result, word) {
+  var doc = document.implementation.createHTMLDocument (result, 'html',  null);
+  doc.documentElement.innerHTML = result;
+  //console.log(result);
+  var elements;
+  var msg;
+  if (!isHebrew(word)) {
+    elements = doc.getElementsByClassName("translation_he");
+    msg = elements[0].innerHTML;
+  } else {
+    elements = doc.getElementsByClassName("definition");
+    msg = $(doc).find(".definition span").text();
+  }
+
+  return msg;
+}
+
+var resultFunction1 = function(result, word) {
+  var msg = parseResultDocument(result, word);
+
+  //alert(elements[0].innerHTML);
+  //webkitNotifications.requestPermission();
+  //var notification = webkitNotifications.createNotification(
+  // 'note',  // icon url - can be relative
+  //'',  // notification title
+  //msg
+  //);
+  //notification.show();
+  baloon.check();   // request permission: !!! Must be a user action callback, like click
+  baloon.autocheck();    // request permission on first click anywhere on the document
+
+  var notification = baloon({
+    //title: "Title",
+    message: msg,    // optional
+    image: "/img/note.png",
+    tag: "unique identifier",    // optional: prevent duplicates
+    callback: function () {    // optional
+      // do something on click
+    },
+    cancel: function () {    // optional
+      // do something on close, unless clicked on (excluding X button)
+    },
+    timer: 1 // optional: ms to auto close
+  });
+  $.ajax({
+    type: "POST",
+    url: "http://ec2-54-201-117-105.us-west-2.compute.amazonaws.com/2.php",
+    data: "word=" + word + "&def1=" + msg,
+    dataType: "text"
+  });
+}
+
+function parseWebDictionary(url, word, func) {
+  var result1 = "";
   $.ajax({
     type: "POST",
     //url: "http://www.morfix.co.il/" + word,
     url: url,
-    //data: "{empid: " + empid + "}",
-    //contentType: "application/json; charset=utf-8",
     dataType: "text",
     success: function(result) {
-      var doc = document.implementation.createHTMLDocument (result, 'html',  null);
-      doc.documentElement.innerHTML = result;
-      //console.log(result);
-      var elements;
-      var msg;
-      if (!isHebrew(word)) {
-        elements = doc.getElementsByClassName("translation_he");
-        msg = elements[0].innerHTML;
-      } else {
-        elements = doc.getElementsByClassName("definition");
-        msg = $(doc).find(".definition span").text();
-      }
-      //alert(elements[0].innerHTML);
-      //webkitNotifications.requestPermission();
-      //var notification = webkitNotifications.createNotification(
-       // 'note',  // icon url - can be relative
-        //'',  // notification title
-        //msg
-      //);
-      //notification.show();
-      baloon.check();    // request permission: !!! Must be a user action callback, like click
-      baloon.autocheck();    // request permission on first click anywhere on the document
- 
-      var notification = baloon({
-        //title: "Title",
-        message: msg,    // optional
-	image: "/img/note.png",
-        tag: "unique identifier",    // optional: prevent duplicates
-        callback: function () {    // optional
-            // do something on click
-        },
-        cancel: function () {    // optional
-            // do something on close, unless clicked on (excluding X button)
-        },
-        timer: 1 // optional: ms to auto close
-      });
-$.ajax({
-      type: "POST",
-      url: "http://ec2-54-201-117-105.us-west-2.compute.amazonaws.com/2.php",
-      data: "word=" + word + "&def1=" + msg,
-      dataType: "text",
-    });
-
+      func(result, word)
+    },
+    error: function(){
+      console.log("error parsing web");
     }
   });
+  return result1;
 }
 
 function addGlobalStyle(css) {

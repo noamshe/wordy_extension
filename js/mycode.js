@@ -1,24 +1,14 @@
 $(document).ready(function () {
 
   $(document.body).dblclick(function () {
-    parseSelection();
+    var selection = getSelectionHtml();
+    parseSelection(selection, resultFunction1);
   });
 
   shortcut.add("Ctrl+Shift+X", function () {
-    parseSelection();
-  });
-
-  function parseSelection() {
     var selection = getSelectionHtml();
-    if (isHebrew(selection)) {
-      console.log('hebrew');
-      parseWebDictionary("http://www.babylon.co.il/definition/" + selection + "/hebrew");
-    }
-    else {
-      console.log('english');
-      parseWebDictionary("http://www.morfix.co.il/" + selection);
-    }
-  }
+    parseSelection(selection, resultFunction1);
+  });
 
   chrome.runtime.sendMessage({method: "getStatus"}, function (response) {
     console.log(response.status);
