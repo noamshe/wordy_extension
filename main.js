@@ -7,12 +7,11 @@ $("#url").submit(function(event) {
 
   $("#result").html('');
   var values = $(this).serialize();
-  alert(values);
-  alert($("#word_id").val());
+  var word = $("#word_id").val();
 
   $.ajax({
     type: "POST",
-    url: "http://www.morfix.co.il/car";
+    url: "http://www.morfix.co.il/" + word,
     //data: "{empid: " + empid + "}",
     //contentType: "application/json; charset=utf-8",
     dataType: "text",
@@ -22,7 +21,7 @@ $("#url").submit(function(event) {
       //console.log(result);
       var elements;
       var msg;
-      if (!isHebrew("word")) {
+      if (!isHebrew(word)) {
         elements = doc.getElementsByClassName("translation_he");
         msg = elements[0].innerHTML;
       } else {
