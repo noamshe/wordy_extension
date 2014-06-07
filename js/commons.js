@@ -54,14 +54,18 @@ function parseResultDocument(result, word) {
   doc.documentElement.innerHTML = result;
   //console.log(result);
   var elements;
-  var msg;
+  var msg = "";
   if (!isHebrew(word)) {
     elements = doc.getElementsByClassName("translation_he");
     msg = elements[0].innerHTML;
   } else {
     //msg = $(doc).find(".definition span").text();
-    elements = doc.getElementsByClassName("definition");
-    msg = elements[0].innerHTML;
+    //elements = doc.getElementsByClassName("definition");
+    elements = $(doc).find('.definition').filter(function(){ return $(this).text().indexOf('Wikipedia.org') == -1;}).filter(function(){ return this.id.indexOf('gaga_text') == -1;}).filter(function(){ return this.id.indexOf('gaga_div') == -1;});
+    for (var i=0;i<elements.size();i++) {
+      msg += elements[i].innerHTML.trim();
+      msg += "<br>";
+    }
   }
 
   return msg;
