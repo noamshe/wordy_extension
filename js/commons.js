@@ -59,8 +59,9 @@ function parseResultDocument(result, word) {
     elements = doc.getElementsByClassName("translation_he");
     msg = elements[0].innerHTML;
   } else {
+    //msg = $(doc).find(".definition span").text();
     elements = doc.getElementsByClassName("definition");
-    msg = $(doc).find(".definition span").text();
+    msg = elements[0].innerHTML;
   }
 
   return msg;
