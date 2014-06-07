@@ -64,6 +64,7 @@ function parseResultDocument(result, word) {
     elements = $(doc).find('.definition').filter(function(){ return $(this).text().indexOf('Wikipedia.org') == -1;}).filter(function(){ return this.id.indexOf('gaga_text') == -1;}).filter(function(){ return this.id.indexOf('gaga_div') == -1;});
     for (var i=0;i<elements.size();i++) {
       msg += elements[i].innerHTML.trim();
+      //msg += elements[i].innerText.trim();
       msg += "<br>";
     }
   }
