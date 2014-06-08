@@ -130,9 +130,7 @@ function parseWebDictionary(url, word, func) {
     success: function(result) {
       func(result, word)
     },
-    error: function(){
-      console.log("error parsing web");
-    }
+error: function (data, textStatus, jqXHR) { alert(textStatus); }
   });
   return result1;
 }
