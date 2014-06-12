@@ -38,6 +38,17 @@ function isHebrew(text) {
     || text.indexOf("ך") != -1;
 }
 
+function parseSelectionSpanish(selection, func) {
+  if (isHebrew(selection)) {
+    console.log('hebrew');
+    return parseWebDictionary("http://www.babylon.co.il/definition/" + selection + "/spanish", selection, func);
+  }
+  else {
+    console.log('english');
+    return parseWebDictionary("http://www.morfix.co.il/" + selection, selection, func);
+  }
+}
+
 function parseSelection(selection, func) {
   if (isHebrew(selection)) {
     console.log('hebrew');
@@ -83,6 +94,7 @@ var resultFunction1 = function(result, word) {
   //msg
   //);
   //notification.show();
+  showControls(msg);
   baloon.check();   // request permission: !!! Must be a user action callback, like click
   baloon.autocheck();    // request permission on first click anywhere on the document
 
@@ -97,7 +109,7 @@ var resultFunction1 = function(result, word) {
     cancel: function () {    // optional
       // do something on close, unless clicked on (excluding X button)
     },
-    timer: 1 // optional: ms to auto close
+    timer: 100 // optional: ms to auto close
   });
 
   addWordToDB(word, msg, function(){});
