@@ -1,6 +1,8 @@
 .tourcontrols{
 	position:fixed;
 	//top:20px;
+    height: 82px;
+    overflow-y: auto;
 	right:-300px;
 	width:270px;
 	background:#000;

@@ -372,13 +372,24 @@ var baloon = (function __baloon__() {
 
 function showControls(msg) {
 
+  var popupExistsSize = document.getElementsByName("boxy").length;
+  if (popupExistsSize >= 5) {
+    return;
+  }
   closeIconUrl = chrome.extension.getURL("img/cross-circle.png");
   noteIconUrl = chrome.extension.getURL("img/disk-red.png");
   markIconUrl = chrome.extension.getURL("img/16.png");
 
-  var popupExistsSize = document.getElementsByName("boxy").length;
-  var popupId = "boxyid_" + popupExistsSize;
-  var top = popupExistsSize * 80;
+  var nextAvailable = -1;
+  for (var i = 0; i<popupExistsSize; i++) {
+    if (document.getElementById("boxyid_" + i) == undefined) {
+      nextAvailable = i;
+      break;
+    }
+  }
+  var nextPlace = nextAvailable == -1 ? popupExistsSize : nextAvailable;
+  var popupId = "boxyid_" + nextPlace;
+  var top = nextPlace * 110;
   var $tourcontrols  = '<div style="top:' + top + 'px" name="boxy" id="' + popupId + '" class="tourcontrols">';
   $tourcontrols += '<img style="float:right; cursor: pointer;" src="' + closeIconUrl + '"/>';
   $tourcontrols += '<img style="float:right; cursor: pointer;" src="' + noteIconUrl + '"/>';
