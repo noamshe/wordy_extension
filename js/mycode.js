@@ -370,14 +370,16 @@ var baloon = (function __baloon__() {
   return exports;
 }());
 
-
 function showControls(msg) {
 
   closeIconUrl = chrome.extension.getURL("img/cross-circle.png");
   noteIconUrl = chrome.extension.getURL("img/disk-red.png");
   markIconUrl = chrome.extension.getURL("img/16.png");
 
-  var $tourcontrols  = '<div id="tourcontrols" class="tourcontrols">';
+  var popupExistsSize = document.getElementsByName("boxy").length;
+  var popupId = "boxyid_" + popupExistsSize;
+  var top = popupExistsSize * 80;
+  var $tourcontrols  = '<div style="top:' + top + 'px" name="boxy" id="' + popupId + '" class="tourcontrols">';
   $tourcontrols += '<img style="float:right; cursor: pointer;" src="' + closeIconUrl + '"/>';
   $tourcontrols += '<img style="float:right; cursor: pointer;" src="' + noteIconUrl + '"/>';
   $tourcontrols += '<img style="float:right; cursor: pointer;" src="' + markIconUrl + '"/>';
@@ -390,14 +392,14 @@ function showControls(msg) {
 //  $('#canceltour').live('click', hideControls());
 
   $(document.body).prepend($tourcontrols);
-  $('#tourcontrols').animate({'right':'30px'},500);
+  $('#' + popupId).animate({'right':'30px'},500);
 //  setTimeout(function(){
 //    $('#tourcontrols').animate({'right':'-300px'},500);
 //    setTimeout(function(){
 //      $("#tourcontrols").remove();
 //    }, 500);
 //  }, timeout);
-  $("#tourcontrols").click(function() {$("#tourcontrols").remove()});
+  $("#" + popupId).click(function() {$("#" + popupId).remove()});
   //addCloseTimerToVisitedPage();
 }
 
