@@ -1,6 +1,26 @@
 /**
  * Created by noam on 5/26/14.
  */
+var urlObject = {
+    "babylon" : {"url": "http://www.babylon.co.il/definition/$WORD$/hebrew", "parser": babylonParser, "output":result1},
+    "morfix" : {"url":"http://www.morfix.co.il/$WORD$", "parser": morifxParser, "output":result1}
+};
+
+var morifxParser = function(doc) {
+    var elements = doc.getElementsByClassName("translation_he");
+    var msg = elements[0].innerHTML;
+    return msg;
+}
+
+var babylonParser = function(doc) {
+    var msg = "";
+    var elements = $(doc).find('.definition').filter(function(){ return $(this).text().indexOf('Wikipedia.org') == -1;}).filter(function(){ return this.id.indexOf('gaga_text') == -1;}).filter(function(){ return this.id.indexOf('gaga_div') == -1;});
+    for (var i=0;i<elements.size();i++) {
+      msg += elements[i].innerHTML.trim();
+      msg += "<br>";
+    }
+    return msg;
+}
 
 function getSelectionHtml() {
   var html = "";
@@ -41,11 +61,11 @@ function isHebrew(text) {
 function parseSelectionSpanish(selection, func) {
   if (isHebrew(selection)) {
     console.log('hebrew');
-    return parseWebDictionary("http://www.babylon.co.il/definition/" + selection + "/hebrew", selection, func);
+    return parseWebDictionary(urlObject.babylon.url.replace("$WORD$", selection), selection, func);
   }
   else {
     console.log('english');
-    return parseWebDictionary("http://www.morfix.co.il/" + selection, selection, func);
+    return parseWebDictionary(urlObject.morfix.url.replace("$WORD$", selection), selection, func);
   }
 }
 
@@ -64,23 +84,19 @@ function parseResultDocument(result, word) {
   var doc = document.implementation.createHTMLDocument (result, 'html',  null);
   doc.documentElement.innerHTML = result;
   //console.log(result);
-  var elements;
   var msg = "";
   if (!isHebrew(word)) {
-    elements = doc.getElementsByClassName("translation_he");
-    msg = elements[0].innerHTML;
+     msg = morifxParser(doc);
   } else {
-    //msg = $(doc).find(".definition span").text();
-    //elements = doc.getElementsByClassName("definition");
-    elements = $(doc).find('.definition').filter(function(){ return $(this).text().indexOf('Wikipedia.org') == -1;}).filter(function(){ return this.id.indexOf('gaga_text') == -1;}).filter(function(){ return this.id.indexOf('gaga_div') == -1;});
-    for (var i=0;i<elements.size();i++) {
-      msg += elements[i].innerHTML.trim();
-      //msg += elements[i].innerText.trim();
-      msg += "<br>";
-    }
+     msg = babylonParser(doc);
   }
 
   return msg;
+}
+var result1 = function(result, word) {
+  var msg = parseResultDocument(result, word);
+  showControls(msg);
+  addWordToDB(word, msg, function(){});
 }
 
 var resultFunction1 = function(result, word) {
