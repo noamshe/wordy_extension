@@ -41,7 +41,7 @@ function isHebrew(text) {
 function parseSelectionSpanish(selection, func) {
   if (isHebrew(selection)) {
     console.log('hebrew');
-    return parseWebDictionary("http://www.babylon.co.il/definition/" + selection + "/spanish", selection, func);
+    return parseWebDictionary("http://www.babylon.co.il/definition/" + selection + "/hebrew", selection, func);
   }
   else {
     console.log('english');

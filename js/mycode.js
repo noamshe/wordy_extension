@@ -394,6 +394,7 @@ function showControls(msg) {
   $tourcontrols += '<img style="float:right; cursor: pointer;" src="' + closeIconUrl + '"/>';
   $tourcontrols += '<img style="float:right; cursor: pointer;" src="' + noteIconUrl + '"/>';
   $tourcontrols += '<img style="float:right; cursor: pointer;" src="' + markIconUrl + '"/>';
+  $tourcontrols += '<br>';
   $tourcontrols += '<p>';
   $tourcontrols += msg;
   $tourcontrols += '</p>';
