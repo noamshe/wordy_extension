@@ -27,6 +27,12 @@ var urlObject =
         }
 };
 
+var langObj =
+{
+    "english": urlObject,
+    "hebrew": urlObject
+}
+
 /*
 var morifxParser = function(doc) {
     var elements = doc.getElementsByClassName("translation_he");
@@ -84,11 +90,11 @@ function isHebrew(text) {
 function parseSelection(selection, func) {
   if (isHebrew(selection)) {
     console.log('hebrew');
-    return parseWebDictionary(urlObject.babylon.url.replace("$WORD$", selection), selection, func);
+    return parseWebDictionary(langObj.hebrew.babylon.url.replace("$WORD$", selection), selection, func);
   }
   else {
     console.log('english');
-    return parseWebDictionary(urlObject.morfix.url.replace("$WORD$", selection), selection, func);
+    return parseWebDictionary(langObj.english.morfix.url.replace("$WORD$", selection), selection, func);
   }
 }
 /*
