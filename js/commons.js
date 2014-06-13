@@ -1,11 +1,33 @@
 /**
  * Created by noam on 5/26/14.
  */
-var urlObject = {
-    "babylon" : {"url": "http://www.babylon.co.il/definition/$WORD$/hebrew", "parser": babylonParser, "output":result1},
-    "morfix" : {"url":"http://www.morfix.co.il/$WORD$", "parser": morifxParser, "output":result1}
+var urlObject =
+{
+    "babylon" :
+        {
+            "url": "http://www.babylon.co.il/definition/$WORD$/hebrew",
+            "parser": function(doc) {
+                        var msg = "";
+                        var elements = $(doc).find('.definition').filter(function(){ return $(this).text().indexOf('Wikipedia.org') == -1;}).filter(function(){ return this.id.indexOf('gaga_text') == -1;}).filter(function(){ return this.id.indexOf('gaga_div') == -1;});
+                        for (var i=0;i<elements.size();i++) {
+                          msg += elements[i].innerHTML.trim();
+                          msg += "<br>";
+                        }
+                        return msg;
+                      }
+        },
+    "morfix" :
+        {
+            "url":"http://www.morfix.co.il/$WORD$",
+            "parser": function(doc) {
+                        var elements = doc.getElementsByClassName("translation_he");
+                        var msg = elements[0].innerHTML;
+                        return msg;
+                      }
+        }
 };
 
+/*
 var morifxParser = function(doc) {
     var elements = doc.getElementsByClassName("translation_he");
     var msg = elements[0].innerHTML;
@@ -21,6 +43,7 @@ var babylonParser = function(doc) {
     }
     return msg;
 }
+*/
 
 function getSelectionHtml() {
   var html = "";
@@ -58,7 +81,7 @@ function isHebrew(text) {
     || text.indexOf("ך") != -1;
 }
 
-function parseSelectionSpanish(selection, func) {
+function parseSelection(selection, func) {
   if (isHebrew(selection)) {
     console.log('hebrew');
     return parseWebDictionary(urlObject.babylon.url.replace("$WORD$", selection), selection, func);
@@ -68,7 +91,7 @@ function parseSelectionSpanish(selection, func) {
     return parseWebDictionary(urlObject.morfix.url.replace("$WORD$", selection), selection, func);
   }
 }
-
+/*
 function parseSelection(selection, func) {
   if (isHebrew(selection)) {
     console.log('hebrew');
@@ -79,6 +102,7 @@ function parseSelection(selection, func) {
     return parseWebDictionary("http://www.morfix.co.il/" + selection, selection, func);
   }
 }
+*/
 
 function parseResultDocument(result, word) {
   var doc = document.implementation.createHTMLDocument (result, 'html',  null);
@@ -86,19 +110,21 @@ function parseResultDocument(result, word) {
   //console.log(result);
   var msg = "";
   if (!isHebrew(word)) {
-     msg = morifxParser(doc);
+     msg = urlObject.morfix.parser(doc);
   } else {
-     msg = babylonParser(doc);
+     msg = urlObject.babylon.parser(doc);
   }
 
   return msg;
 }
-var result1 = function(result, word) {
+
+var inPageOutput = function(result, word) {
   var msg = parseResultDocument(result, word);
   showControls(msg);
   addWordToDB(word, msg, function(){});
 }
 
+/*
 var resultFunction1 = function(result, word) {
   var msg = parseResultDocument(result, word);
 
@@ -130,8 +156,8 @@ var resultFunction1 = function(result, word) {
   });
   */
 
-  addWordToDB(word, msg, function(){});
-}
+//  addWordToDB(word, msg, function(){});
+//}
 
 function addWordToDB(word, definition, func) {
   chrome.runtime.sendMessage({method: "append_words"}, function (response) {
@@ -160,7 +186,7 @@ function parseWebDictionary(url, word, func) {
     success: function(result) {
       func(result, word)
     },
-error: function (data, textStatus, jqXHR) { alert(textStatus); }
+    error: function (data, textStatus, jqXHR) { alert(textStatus); }
   });
   return result1;
 }

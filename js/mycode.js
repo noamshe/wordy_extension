@@ -5,12 +5,12 @@ $(document).ready(function () {
   $(document.body).dblclick(function () {
     var selection = getSelectionHtml();
     //parseSelection(selection, resultFunction1);
-    parseSelectionSpanish(selection, resultFunction1);
+    parseSelection(selection, inPageOutput);
   });
 
   shortcut.add("Ctrl+Shift+X", function () {
     var selection = getSelectionHtml();
-    parseSelection(selection, resultFunction1);
+    parseSelection(selection, inPageOutput);
   });
 
   chrome.runtime.sendMessage({method: "getStatus"}, function (response) {
