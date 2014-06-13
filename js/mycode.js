@@ -398,19 +398,16 @@ function showControls(msg) {
   $tourcontrols += '<p>';
   $tourcontrols += msg;
   $tourcontrols += '</p>';
-//  $tourcontrols += '<span class="button" id="activatetour">Start the tour</span>';
-//  $tourcontrols += '<span class="close" id="canceltour"></span>';
   $tourcontrols += '</div>';
-//  $('#canceltour').live('click', hideControls());
 
   $(document.body).prepend($tourcontrols);
-  $('#' + popupId).animate({'right':'30px'},500);
-//  setTimeout(function(){
-//    $('#tourcontrols').animate({'right':'-300px'},500);
-//    setTimeout(function(){
-//      $("#tourcontrols").remove();
-//    }, 500);
-//  }, timeout);
+  $('#' + popupId).animate({'right':'30px'},100);
+  setTimeout(function(){
+    $('#' + popupId).animate({'right':'-300px'},500);
+    setTimeout(function(){
+      $("#" + popupId).remove();
+    }, 500);
+  }, timeout);
   $("#" + popupId).click(function() {$("#" + popupId).remove()});
   //addCloseTimerToVisitedPage();
 }
