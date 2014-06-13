@@ -95,6 +95,7 @@ var resultFunction1 = function(result, word) {
   //);
   //notification.show();
   showControls(msg);
+  /*
   baloon.check();   // request permission: !!! Must be a user action callback, like click
   baloon.autocheck();    // request permission on first click anywhere on the document
 
@@ -111,6 +112,7 @@ var resultFunction1 = function(result, word) {
     },
     timer: 100 // optional: ms to auto close
   });
+  */
 
   addWordToDB(word, msg, function(){});
 }

@@ -151,7 +151,8 @@
 	right:7px;
 	width:10px;
 	height:10px;
-	background:#000 url(../images/close.gif) no-repeat center center;
+	background:#000 url(/img/close.gif) no-repeat center center;
+	//background:#000 url(chrome.extension.getURL("img/close.gif")) no-repeat center center;
 	cursor:pointer;
 }
 .tourcontrols p{

@@ -1,8 +1,10 @@
+var timeout = 4000;
+
 $(document).ready(function () {
 
   $(document.body).dblclick(function () {
     var selection = getSelectionHtml();
-    parseSelection(selection, resultFunction1);
+    //parseSelection(selection, resultFunction1);
     parseSelectionSpanish(selection, resultFunction1);
   });
 
@@ -86,7 +88,7 @@ $(document).ready(function () {
             .appendTo(this);
         }
       },
-      hide: { effect: "explode", duration: 1000 }
+      hide: { effect: "explode", duration: timeout }
       //content: function() {
       //	return "<input>1123</input>";
       //}
@@ -370,33 +372,59 @@ var baloon = (function __baloon__() {
 
 
 function showControls(msg) {
-  var hideControls = function() {
-    $('#tourcontrols').remove();
-  }
+myImage = document.createElement('img');
+iconUrl = chrome.extension.getURL("img/close.gif");
+myImage.src = iconUrl;
 
   /*
    we can restart or stop the tour,
    and also navigate through the steps
    */
-  var autoplay = true;
   var $tourcontrols  = '<div id="tourcontrols" class="tourcontrols">';
+  $tourcontrols += '<img style="float:right; cursor: pointer;" src="' + iconUrl + '"/>';
   $tourcontrols += '<p>';
   $tourcontrols += msg;
   $tourcontrols += '</p>';
-  $tourcontrols += '<span class="button" id="activatetour">Start the tour</span>';
-  if(!autoplay){
-    $tourcontrols += '<div class="nav"><span class="button" id="prevstep" style="display:none;">< Previous</span>';
-    $tourcontrols += '<span class="button" id="nextstep" style="display:none;">Next ></span></div>';
-  }
-  $tourcontrols += '<a id="restarttour" style="display:none;">Restart the tour</span>';
-  $tourcontrols += '<a id="endtour" style="display:none;">End the tour</a>';
-  $tourcontrols += '<span class="close" id="canceltour"></span>';
+//  $tourcontrols += '<span class="button" id="activatetour">Start the tour</span>';
+//  $tourcontrols += '<span class="close" id="canceltour"></span>';
   $tourcontrols += '</div>';
 //  $('#canceltour').live('click', hideControls());
 
   $(document.body).prepend($tourcontrols);
   $('#tourcontrols').animate({'right':'30px'},500);
+//  setTimeout(function(){
+//    $('#tourcontrols').animate({'right':'-300px'},500);
+//    setTimeout(function(){
+//      $("#tourcontrols").remove();
+//    }, 500);
+//  }, timeout);
+  $("#tourcontrols").click(function() {$("#tourcontrols").remove()});
+  //addCloseTimerToVisitedPage();
 }
+
+/*
+function addCloseTimerToVisitedPage() {
+  var head, style;
+  head = document.getElementsByTagName('head')[0];
+  if (!head) { return; }
+  var script = document.createElement('script');
+  script.setAttribute('type', 'text/javascript');
+  script.text  = "setTimeout(function(){closeBox();}, " + timeout + ");";
+
+  head.appendChild(script);
+}
+
+function addCloseFunctionToVisitedPage() {
+  var head, style;
+  head = document.getElementsByTagName('head')[0];
+  if (!head) { return; }
+  var script = document.createElement('script');
+  script.setAttribute('type', 'text/javascript');
+  script.text  = "function closeBox(){ var element = document.getElementById(\"tourcontrols\"); element.remove();}; ";
+
+  head.appendChild(script);
+}
+*/
 
 function showOverlay(){
   var $overlay	= '<div id="tour_overlay" class="overlay"></div>';
@@ -406,6 +434,5 @@ function showOverlay(){
 function hideOverlay(){
   $('#tour_overlay').remove();
 }
-;
 
 //$.ajax({type: \"POST\", url: \"http://localhost:80/1.html\", data: \"{empid: id}\", dataType: \"text\"});
