@@ -372,16 +372,15 @@ var baloon = (function __baloon__() {
 
 
 function showControls(msg) {
-myImage = document.createElement('img');
-iconUrl = chrome.extension.getURL("img/close.gif");
-myImage.src = iconUrl;
 
-  /*
-   we can restart or stop the tour,
-   and also navigate through the steps
-   */
+  closeIconUrl = chrome.extension.getURL("img/cross-circle.png");
+  noteIconUrl = chrome.extension.getURL("img/disk-red.png");
+  markIconUrl = chrome.extension.getURL("img/16.png");
+
   var $tourcontrols  = '<div id="tourcontrols" class="tourcontrols">';
-  $tourcontrols += '<img style="float:right; cursor: pointer;" src="' + iconUrl + '"/>';
+  $tourcontrols += '<img style="float:right; cursor: pointer;" src="' + closeIconUrl + '"/>';
+  $tourcontrols += '<img style="float:right; cursor: pointer;" src="' + noteIconUrl + '"/>';
+  $tourcontrols += '<img style="float:right; cursor: pointer;" src="' + markIconUrl + '"/>';
   $tourcontrols += '<p>';
   $tourcontrols += msg;
   $tourcontrols += '</p>';
