@@ -1,7 +1,7 @@
 /**
  * Created by noam on 5/26/14.
  */
-var urlObject =
+var hebrewToHebrewObj =
 {
     "babylon" :
         {
@@ -15,7 +15,10 @@ var urlObject =
                         }
                         return msg;
                       }
-        },
+        }
+}
+var englishToHebrewObj =
+{
     "morfix" :
         {
             "url":"http://www.morfix.co.il/$WORD$",
@@ -29,9 +32,17 @@ var urlObject =
 
 var langObj =
 {
-    "english": urlObject,
-    "hebrew": urlObject
+    "english": englishToHebrewObj,
+    "hebrew": hebrewToHebrewObj
 }
+
+/*
+var langObj =
+{
+    "english": [englishToHebrewObj],
+    "hebrew": [hebrewToHebrewObj]
+}
+*/
 
 /*
 var morifxParser = function(doc) {
@@ -87,14 +98,22 @@ function isHebrew(text) {
     || text.indexOf("ך") != -1;
 }
 
-function parseSelection(selection, func) {
+function parseSelection(selection, output) {
+/*
+    arr = langObj.hebrew;
+    for (parser in arr) {
+        var obj = arr[parser];
+        var p = 0;
+    }
+    */
+
   if (isHebrew(selection)) {
     console.log('hebrew');
-    return parseWebDictionary(langObj.hebrew.babylon.url.replace("$WORD$", selection), selection, func);
+    return parseWebDictionary(langObj.hebrew.babylon.url.replace("$WORD$", selection), selection, output);
   }
   else {
     console.log('english');
-    return parseWebDictionary(langObj.english.morfix.url.replace("$WORD$", selection), selection, func);
+    return parseWebDictionary(langObj.english.morfix.url.replace("$WORD$", selection), selection, output);
   }
 }
 /*
@@ -116,9 +135,9 @@ function parseResultDocument(result, word) {
   //console.log(result);
   var msg = "";
   if (!isHebrew(word)) {
-     msg = urlObject.morfix.parser(doc);
+     msg = langObj.english.morfix.parser(doc);
   } else {
-     msg = urlObject.babylon.parser(doc);
+     msg = langObj.hebrew.babylon.parser(doc);
   }
 
   return msg;
