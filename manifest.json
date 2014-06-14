@@ -5,7 +5,7 @@
   "content_scripts": [ {
     "all_frames": true,
     //"js": [ "js/jquery-1.10.2.js", "js/jquery-ui.js", "js/mycode.js", "js/commons.js", "js/shortcut.js", "js/ChunkFive_400.font.js", "js/cufon-yui.js" ],
-    "js": [ "js/jquery-1.10.2.js", "js/jquery-ui.js", "js/mycode.js", "js/commons.js", "js/shortcut.js" ],
+    "js": [ "js/jquery/jquery-1.10.2.js", "js/jquery/jquery-ui.js", "js/constants.js", "js/dictionaries.js", "js/parser.js", "js/mycode.js", "js/commons.js", "js/plugins/shortcut.js"],
     "matches": [ "http://*/*", "https://*/*", "file://*" ],
     "css": ["css/jquerytour.css", "css/style.css"],
     "run_at": "document_idle"

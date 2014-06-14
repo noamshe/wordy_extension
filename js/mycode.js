@@ -1,17 +1,22 @@
-var timeout = 4000;
 
 $(document).ready(function () {
 
   $(document.body).dblclick(function () {
     var selection = getSelectionHtml();
-    //parseSelection(selection, resultFunction1);
     parseSelection(selection, inPageOutput);
   });
 
-  shortcut.add("Ctrl+Shift+X", function () {
+  shortcut.add(MARK_SHORT_CUT, function () {
+  //  shortcut.add("Ctrl+Shift+Q", function () {
     var selection = getSelectionHtml();
     parseSelection(selection, inPageOutput);
   });
+
+  var inPageOutput = function(result, word, translationObj) {
+    var msg = parseResultDocument(result, word, translationObj);
+    showControls(msg);
+    addWordToDB(word, msg, function(){});
+  }
 
   chrome.runtime.sendMessage({method: "getStatus"}, function (response) {
     console.log(response.status);
@@ -88,7 +93,7 @@ $(document).ready(function () {
             .appendTo(this);
         }
       },
-      hide: { effect: "explode", duration: timeout }
+      hide: { effect: "explode", duration: 1000}
       //content: function() {
       //	return "<input>1123</input>";
       //}
@@ -401,15 +406,14 @@ function showControls(msg) {
   $tourcontrols += '</div>';
 
   $(document.body).prepend($tourcontrols);
-  $('#' + popupId).animate({'right':'30px'},100);
+  $('#' + popupId).animate({'right':'30px'}, BOX_IN_SPEED);
   setTimeout(function(){
-    $('#' + popupId).animate({'right':'-300px'},500);
+    $('#' + popupId).animate({'right':'-300px'}, BOX_OUT_SPEED);
     setTimeout(function(){
       $("#" + popupId).remove();
-    }, 500);
-  }, timeout);
+    }, BOX_OUT_SPEED);
+  }, CLOSE_BOX_TIMEOUT);
   $("#" + popupId).click(function() {$("#" + popupId).remove()});
-  //addCloseTimerToVisitedPage();
 }
 
 /*

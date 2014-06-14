@@ -1,48 +1,6 @@
 /**
  * Created by noam on 5/26/14.
  */
-var hebrewToHebrewObj =
-{
-    "babylon" :
-        {
-            "url": "http://www.babylon.co.il/definition/$WORD$/hebrew",
-            "parser": function(doc) {
-                        var msg = "";
-                        var elements = $(doc).find('.definition').filter(function(){ return $(this).text().indexOf('Wikipedia.org') == -1;}).filter(function(){ return this.id.indexOf('gaga_text') == -1;}).filter(function(){ return this.id.indexOf('gaga_div') == -1;});
-                        for (var i=0;i<elements.size();i++) {
-                          msg += elements[i].innerHTML.trim();
-                          msg += "<br>";
-                        }
-                        return msg;
-                      }
-        }
-}
-var englishToHebrewObj =
-{
-    "morfix" :
-        {
-            "url":"http://www.morfix.co.il/$WORD$",
-            "parser": function(doc) {
-                        var elements = doc.getElementsByClassName("translation_he");
-                        var msg = elements[0].innerHTML;
-                        return msg;
-                      }
-        }
-};
-
-var langObj =
-{
-    "english": englishToHebrewObj,
-    "hebrew": hebrewToHebrewObj
-}
-
-/*
-var langObj =
-{
-    "english": [englishToHebrewObj],
-    "hebrew": [hebrewToHebrewObj]
-}
-*/
 
 /*
 var morifxParser = function(doc) {
@@ -98,24 +56,6 @@ function isHebrew(text) {
     || text.indexOf("ך") != -1;
 }
 
-function parseSelection(selection, output) {
-/*
-    arr = langObj.hebrew;
-    for (parser in arr) {
-        var obj = arr[parser];
-        var p = 0;
-    }
-    */
-
-  if (isHebrew(selection)) {
-    console.log('hebrew');
-    return parseWebDictionary(langObj.hebrew.babylon.url.replace("$WORD$", selection), selection, output);
-  }
-  else {
-    console.log('english');
-    return parseWebDictionary(langObj.english.morfix.url.replace("$WORD$", selection), selection, output);
-  }
-}
 /*
 function parseSelection(selection, func) {
   if (isHebrew(selection)) {
@@ -129,25 +69,6 @@ function parseSelection(selection, func) {
 }
 */
 
-function parseResultDocument(result, word) {
-  var doc = document.implementation.createHTMLDocument (result, 'html',  null);
-  doc.documentElement.innerHTML = result;
-  //console.log(result);
-  var msg = "";
-  if (!isHebrew(word)) {
-     msg = langObj.english.morfix.parser(doc);
-  } else {
-     msg = langObj.hebrew.babylon.parser(doc);
-  }
-
-  return msg;
-}
-
-var inPageOutput = function(result, word) {
-  var msg = parseResultDocument(result, word);
-  showControls(msg);
-  addWordToDB(word, msg, function(){});
-}
 
 /*
 var resultFunction1 = function(result, word) {
@@ -199,21 +120,6 @@ function addWordToDB(word, definition, func) {
       });
     }
   });
-}
-
-function parseWebDictionary(url, word, func) {
-  var result1 = "";
-  $.ajax({
-    type: "POST",
-    //url: "http://www.morfix.co.il/" + word,
-    url: url,
-    dataType: "text",
-    success: function(result) {
-      func(result, word)
-    },
-    error: function (data, textStatus, jqXHR) { alert(textStatus); }
-  });
-  return result1;
 }
 
 function addGlobalStyle(css) {

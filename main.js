@@ -8,8 +8,8 @@ $("#search").submit(function(event) {
   var values = $(this).serialize();
   var word = $("#word_id").val();
 
-  var res = parseSelection(word, function(result, word) {
-    var msg = parseResultDocument(result, word);
+  var res = parseSelection(word, function(result, word, translationObj) {
+    var msg = parseResultDocument(result, word, translationObj);
     $("#result").html(msg);
     addWordToDB(word, msg, function(){
       $("#result2").html(".המילה התווספה למאגר");
