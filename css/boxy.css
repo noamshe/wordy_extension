@@ -1,0 +1,20 @@
+.boxystyle{
+	position:fixed;
+	//top:20px;
+    height: 82px;
+    overflow-y: auto;
+	right:-300px;
+	width:270px;
+	background:#000;
+	color:orange;
+	text-shadow:0px 0px 1px #fff;
+	font-size:16px;
+	padding:10px;
+	-moz-border-radius:5px;
+	-webkit-border-radius:5px;
+	border-radius:5px;
+	//font-weight:bold;
+	//z-index:9999;
+	z-index:2147483647;
+	/*text-align: right;*/
+}

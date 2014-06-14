@@ -12,6 +12,7 @@ $("#search_from_popup").submit(function(event) {
 
   var res = parseSelection(word, function(result, word, translationObj) {
     var msg = parseResultDocument(result, word, translationObj);
+    $("#result").css("text-align", translationObj.align);
     $("#result").html(msg);
     addWordToDB(word, msg, function(){
       $("#result2").html(ADDED_TO_DB_TEXT);

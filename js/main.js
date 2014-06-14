@@ -3,18 +3,22 @@ $(document).ready(function () {
 
   $(document.body).dblclick(function () {
     var selection = getSelectionHtml();
-    parseSelection(selection, inPageOutput);
+    parseSelection(selection, function(result, word, translationObj) {
+      inPageOutput(result, word, translationObj);
+    });
   });
 
   shortcut.add(MARK_SHORT_CUT, function () {
   //  shortcut.add("Ctrl+Shift+Q", function () {
     var selection = getSelectionHtml();
-    parseSelection(selection, inPageOutput);
+    parseSelection(selection, function(result, word, translationObj) {
+      inPageOutput(result, word, translationObj);
+    });
   });
 
   var inPageOutput = function(result, word, translationObj) {
     var msg = parseResultDocument(result, word, translationObj);
-    showControls(msg);
+    showControls(msg, translationObj);
     addWordToDB(word, msg, function(){});
   }
 
@@ -104,7 +108,7 @@ $(document).ready(function () {
   setTimeout(function () {
 
     addGlobalLink('//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css');
-    //addGlobalLink('//resources/demos/style.css');
+    //addGlobalLink('//resources/demos/style_notinuse.css');
     addGlobalStyle('.ui-tooltip, .arrow:after {background: black;border: 2px solid white;}');
     addGlobalStyle('.ui-tooltip {padding: 10px 20px;color: white;border-radius: 20px;font: bold 14px "Helvetica Neue", Sans-Serif;text-transform: uppercase;box-shadow: 0 0 7px black;}');
     addGlobalStyle('.arrow {width: 70px;height: 16px;overflow: hidden;position: absolute;left: 50%;margin-left: -35px;bottom: -16px;}');
@@ -376,7 +380,7 @@ var baloon = (function __baloon__() {
   return exports;
 }());
 
-function showControls(msg) {
+function showControls(msg, translationObj) {
 
   var popupExistsSize = document.getElementsByName("boxy").length;
   if (popupExistsSize >= 5) {
@@ -396,17 +400,17 @@ function showControls(msg) {
   var nextPlace = nextAvailable == -1 ? popupExistsSize : nextAvailable;
   var popupId = "boxyid_" + nextPlace;
   var top = nextPlace * 110;
-  var $tourcontrols  = '<div style="top:' + top + 'px" name="boxy" id="' + popupId + '" class="tourcontrols">';
-  $tourcontrols += '<img style="float:right; cursor: pointer;" src="' + closeIconUrl + '"/>';
-  $tourcontrols += '<img style="float:right; cursor: pointer;" src="' + noteIconUrl + '"/>';
-  $tourcontrols += '<img style="float:right; cursor: pointer;" src="' + markIconUrl + '"/>';
-  $tourcontrols += '<br>';
-  $tourcontrols += '<p>';
-  $tourcontrols += msg;
-  $tourcontrols += '</p>';
-  $tourcontrols += '</div>';
+  var boxydiv  = '<div style="top:' + top + 'px; text-align: ' + translationObj.align + '" name="boxy" id="' + popupId + '" class="boxystyle">';
+  boxydiv += '<img style="float:right; cursor: pointer;" src="' + closeIconUrl + '"/>';
+  boxydiv += '<img style="float:right; cursor: pointer;" src="' + noteIconUrl + '"/>';
+  boxydiv += '<img style="float:right; cursor: pointer;" src="' + markIconUrl + '"/>';
+  boxydiv += '<br>';
+  boxydiv += '<p>';
+  boxydiv += msg;
+  boxydiv += '</p>';
+  boxydiv += '</div>';
 
-  $(document.body).prepend($tourcontrols);
+  $(document.body).prepend(boxydiv);
   $('#' + popupId).animate({'right':'30px'}, BOX_IN_SPEED);
   setTimeout(function(){
     $('#' + popupId).animate({'right':'-300px'}, BOX_OUT_SPEED);
