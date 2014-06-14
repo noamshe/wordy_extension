@@ -405,7 +405,7 @@ function showControls(msg, translationObj) {
   boxydiv += '<img style="float:right; cursor: pointer;" src="' + noteIconUrl + '"/>';
   boxydiv += '<img style="float:right; cursor: pointer;" src="' + markIconUrl + '"/>';
 //  boxydiv += '<div>' + translationObj.title + '</div>';
-  boxydiv += '<br>';
+//  boxydiv += '<br>';
   boxydiv += '<p>';
   boxydiv += msg;
   boxydiv += '</p>';
