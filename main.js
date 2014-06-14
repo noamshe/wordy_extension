@@ -1,7 +1,9 @@
 /**
  * Created by noam on 06/06/14.
  */
-$("#search").submit(function(event) {
+$("#help_text_1").html(POPUP_HELP_TEXT_1);
+$("#help_text_2").html(POPUP_HELP_TEXT_2);
+$("#search_from_popup").submit(function(event) {
   event.preventDefault();
 
   $("#result").html('');
@@ -12,7 +14,7 @@ $("#search").submit(function(event) {
     var msg = parseResultDocument(result, word, translationObj);
     $("#result").html(msg);
     addWordToDB(word, msg, function(){
-      $("#result2").html(".המילה התווספה למאגר");
+      $("#result2").html(ADDED_TO_DB_TEXT);
     });
   });
 });

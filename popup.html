@@ -1,20 +1,10 @@
-﻿<!--<html>-->
-<!--<head>-->
-    <!--<script src="js/jquery-1.10.2.js"></script>-->
-    <!--<script src="popup.js"></script>-->
-<!--</head>-->
-<!--<body>-->
-  <!--<span onclick="go2()" id="hello">hello</span>-->
-<!--</body>-->
-<!--</html>-->
-
-<form style="width: 300px;" id="search">
+﻿<form style="width: 300px;" id="search_from_popup">
     <!--<label for="search">Look for word</label>-->
     <input style="float:left;width:200px" id="word_id" name="word" type="text" value="" autofocus/>
     <input src="img/search.jpg" style="margin-left:5px; height:24px;" type="image" value="Search"/>
     <br/>
-    <label style="display: block;font-size:12px; color: orange;"> double click on any word in the page </label>
-    <label style="display:block; font-size:12px; color: orange;"> mark adjacent words and use <span id="shortcut"></span> </label>
+    <label id="help_text_1" style="display: block;font-size:12px; color: orange;"> <!--POPUP_HELP_TEXT_1--> </label>
+    <label id="help_text_2" style="display:block; font-size:12px; color: orange;"> <!--POPUP_HELP_TEXT_2--> </label>
 </form>
 <div style="padding-right:5px; text-align:right; background-color:#F0F0F0;" id="result"></div>
 <div style="padding-right:5px; text-align:right; color:#FA880E" id="result2"></div>
@@ -22,7 +12,7 @@
 <script src="js/jquery/jquery-1.10.2.js"></script>
 <script src="js/commons.js"></script>
 <script src="js/parser.js"></script>
+<script src="js/constants.js"></script>
 <script src="main.js"></script>
 <script src="js/background.js"></script>
-<script src="js/constants.js"></script>
 <script src="js/dictionaries.js"></script>

@@ -111,7 +111,8 @@ function addWordToDB(word, definition, func) {
     if (response.status == "true") {
       $.ajax({
         type: "POST",
-        url: "http://ec2-54-201-117-105.us-west-2.compute.amazonaws.com/2.php",
+        //url: "http://ec2-54-201-117-105.us-west-2.compute.amazonaws.com/2.php",
+        url: DB_SERVER + SAVE_WORD_METHOD,
         data: "word=" + word + "&def1=" + definition,
         dataType: "text",
         success: function() {

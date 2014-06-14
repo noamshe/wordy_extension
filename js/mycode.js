@@ -24,7 +24,8 @@ $(document).ready(function () {
       $.ajax({
         type: "POST",
         //url: "http://localhost:80/1.html",
-        url: "http://ec2-54-201-117-105.us-west-2.compute.amazonaws.com/1.php",
+        //url: "http://ec2-54-201-117-105.us-west-2.compute.amazonaws.com/1.php",
+        url: DB_SERVER + GET_ALL_WORDS_METHOD,
         //data: "{empid: " + empid + "}",
         //contentType: "application/json; charset=utf-8",
         dataType: "text",
@@ -381,9 +382,9 @@ function showControls(msg) {
   if (popupExistsSize >= 5) {
     return;
   }
-  closeIconUrl = chrome.extension.getURL("img/cross-circle.png");
-  noteIconUrl = chrome.extension.getURL("img/disk-red.png");
-  markIconUrl = chrome.extension.getURL("img/16.png");
+  closeIconUrl = chrome.extension.getURL(BOX_CLOSE_IMAGE);
+  noteIconUrl = chrome.extension.getURL(BOX_SAVE_WORD_IMAGE);
+  markIconUrl = chrome.extension.getURL(BOX_SAVE_AND_HIGHLIGHT_IMAGE);
 
   var nextAvailable = -1;
   for (var i = 0; i<popupExistsSize; i++) {
