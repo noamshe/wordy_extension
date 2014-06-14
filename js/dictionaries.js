@@ -73,12 +73,30 @@ var englishToFrenchObj =
     return msg;
   }
 }
+var englishToEnglishObj =
+{
+  "info": "oxforddictionaries",
+  "title": "Oxford",
+  "align": "left",
+  "url": "http://www.oxforddictionaries.com/definition/english/bottle?q=$WORD$",
+  "parser": function(document) {
+    var iterations = $(document).find(".iteration").filter(function() {
+      return $(this).text() === '1';
+    });
+    var msg = "";
+    msg += '<p style="display: block">NOUN</p>';
+    msg += $(iterations[0]).parent().find(".definition")[0].innerHTML;
+    msg += '<p style="display: block">VERB</p>';
+    msg += $(iterations[1]).parent().find(".definition")[0].innerHTML;
+    return msg;
+  }
+}
 
 // INIT DICTIONARIES
 var langObj =
 {
   // click on english word
-  "english": [englishToHebrewObj, englishToSpanishObj, englishToFrenchObj],
+  "english": [englishToHebrewObj, englishToSpanishObj, englishToFrenchObj, englishToEnglishObj],
   // click on hebrew word
   "hebrew": [hebrewToEnglishObj, hebrewToHebrewObj]
 }
