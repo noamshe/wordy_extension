@@ -78,7 +78,7 @@ var englishToEnglishObj =
   "info": "oxforddictionaries",
   "title": "Oxford",
   "align": "left",
-  "url": "http://www.oxforddictionaries.com/definition/english/bottle?q=$WORD$",
+  "url": "http://www.oxforddictionaries.com/definition/english/$WORD$",
   "parser": function(document) {
     var iterations = $(document).find(".iteration").filter(function() {
       return $(this).text() === '1';
@@ -91,12 +91,24 @@ var englishToEnglishObj =
     return msg;
   }
 }
+var englishSynonymsObj =
+{
+  "info": "Merriam-webster",
+  "title": "Merriam-webster Synonyms",
+  "align": "left",
+  "url": "http://www.merriam-webster.com/thesaurus/$WORD$",
+  "parser": function(document) {
+    var msg = "";
+    msg += $(document).find("Strong:contains('Synonyms')").parent()[0].innerText;
+    return msg;
+  }
+}
 
 // INIT DICTIONARIES
 var langObj =
 {
   // click on english word
-  "english": [englishToHebrewObj, englishToSpanishObj, englishToFrenchObj, englishToEnglishObj],
+  "english": [englishToHebrewObj, englishToSpanishObj, englishToFrenchObj, englishToEnglishObj, englishSynonymsObj],
   // click on hebrew word
   "hebrew": [hebrewToEnglishObj, hebrewToHebrewObj]
 }
