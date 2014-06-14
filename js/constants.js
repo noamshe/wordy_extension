@@ -4,7 +4,7 @@
  */
 
 var MARK_SHORT_CUT = "Alt+Shift+Q";
-var CLOSE_BOX_TIMEOUT = 4000; //4 sec
+var CLOSE_BOX_TIMEOUT = 10000; //4 sec
 var BOX_IN_SPEED = 100; //0.1 sec
 var BOX_OUT_SPEED = 500; //0.5 sec
 var DB_SERVER = "http://ec2-54-201-117-105.us-west-2.compute.amazonaws.com/";
