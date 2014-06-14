@@ -20,3 +20,6 @@ var POPUP_HELP_TEXT_2 = "mark adjacent words and use " + MARK_SHORT_CUT;
 var BOX_CLOSE_IMAGE = "img/cross-circle.png";
 var BOX_SAVE_WORD_IMAGE = "img/disk-red.png";
 var BOX_SAVE_AND_HIGHLIGHT_IMAGE = "img/16.png";
+
+// POPUP
+var LANGUAGE_SEPERATOR_COLOR = "#FF9966";

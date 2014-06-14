@@ -21,6 +21,7 @@ var englishToHebrewObj =
 {
   "info": "morfix",
   "align": "right",
+  "title": "Hebrew",
   "url":"http://www.morfix.co.il/$WORD$",
   "parser": function(document) {
     var elements = document.getElementsByClassName("translation_he");
@@ -32,6 +33,7 @@ var hebrewToEnglishObj =
 {
   "info": "morfix",
   "align": "left",
+  "title": "English",
   "url":"http://www.morfix.co.il/$WORD$",
   "parser": function(document) {
     var msg = "";
@@ -44,9 +46,38 @@ var hebrewToEnglishObj =
     return msg;
   }
 };
+var englishToSpanishObj =
+{
+  "info": "babylon",
+  "align": "left",
+  "title": "Spanish",
+  "url": "http://www.babylon.co.il/definition/$WORD$/spanish",
+  "parser": function(document) {
+    var msg = "";
+    var elements = $(document).find('.definition');
+    var msg = elements[0].innerHTML;
+    return msg;
+  }
+}
+var englishToFrenchObj =
+{
+  "info": "babylon",
+  "title": "French",
+  "align": "left",
+  "url": "http://www.babylon.co.il/definition/$WORD$/french",
+  "parser": function(document) {
+    var msg = "";
+    var elements = $(document).find('.definition');
+    var msg = elements[0].innerHTML;
+    return msg;
+  }
+}
 
+// INIT DICTIONARIES
 var langObj =
 {
-  "english": [englishToHebrewObj],
-  "hebrew": [hebrewToEnglishObj]
+  // click on english word
+  "english": [englishToHebrewObj, englishToSpanishObj, englishToFrenchObj],
+  // click on hebrew word
+  "hebrew": [hebrewToEnglishObj, hebrewToHebrewObj]
 }
