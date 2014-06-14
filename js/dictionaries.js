@@ -6,6 +6,7 @@ var hebrewToHebrewObj =
 {
   "info": "babylon",
   "align": "right",
+  "title": "Hebrew",
   "url": "http://www.babylon.co.il/definition/$WORD$/hebrew",
   "parser": function(document) {
     var msg = "";
