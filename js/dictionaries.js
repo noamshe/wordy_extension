@@ -4,6 +4,7 @@
  */
 var hebrewToHebrewObj =
 {
+
   "info": "babylon",
   "align": "right",
   "title": "Hebrew",
@@ -115,11 +116,18 @@ var hebrewSynonymsObj =
     return msg;
   }
 }
+
 // INIT DICTIONARIES
 var langObj =
 {
-  // click on english word
-  "english": [englishToHebrewObj, englishToSpanishObj, englishToFrenchObj, englishToEnglishObj, englishSynonymsObj],
-  // click on hebrew word
-  "hebrew": [hebrewToEnglishObj, hebrewToHebrewObj, hebrewSynonymsObj]
+  "page" :
+  {
+    "english": [englishToHebrewObj],
+    "hebrew": [hebrewToEnglishObj]
+  },
+  "popup" :
+  {
+    "english": [englishToHebrewObj, englishToSpanishObj, englishToFrenchObj, englishToEnglishObj, englishSynonymsObj],
+    "hebrew": [hebrewToEnglishObj, hebrewToHebrewObj, hebrewSynonymsObj]
+  }
 }

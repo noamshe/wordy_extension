@@ -3,17 +3,19 @@ $(document).ready(function () {
 
   $(document.body).dblclick(function () {
     var selection = getSelectionHtml();
-    parseSelection(selection, function(result, word, translationObj) {
+    parseSelection(selection, {"output" : function(result, word, translationObj) {
       inPageOutput(result, word, translationObj);
-    });
+    },
+    "type" : "page"});
   });
 
   shortcut.add(MARK_SHORT_CUT, function () {
   //  shortcut.add("Ctrl+Shift+Q", function () {
     var selection = getSelectionHtml();
-    parseSelection(selection, function(result, word, translationObj) {
+    parseSelection(selection, {"output" : function(result, word, translationObj) {
       inPageOutput(result, word, translationObj);
-    });
+    },
+    "type" : "page"});
   });
 
   var inPageOutput = function(result, word, translationObj) {

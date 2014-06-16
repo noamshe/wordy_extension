@@ -9,7 +9,7 @@ function parseWebDictionary(url, word, func, translationObj) {
     url: url, //"http://www.morfix.co.il/" + word
     dataType: "text",
     success: function(result) {
-      func(result, word, translationObj)
+      func.output(result, word, translationObj)
     },
     error: function (data, textStatus, jqXHR) { console.log(textStatus); } // tbd add webkit message for error "something bad happend"
   });
@@ -27,9 +27,9 @@ function parseResultDocument(result, word, tranlationObj) {
 
 function parseSelection(selection, output) {
   if (isHebrew(selection)) {
-    arr = langObj.hebrew;
+    arr = langObj[output.type].hebrew;
   } else {
-    arr = langObj.english;
+    arr = langObj[output.type].english;
   }
   for (elem in arr) {
     var obj = arr[elem];
