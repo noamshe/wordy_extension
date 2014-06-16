@@ -103,12 +103,23 @@ var englishSynonymsObj =
     return msg;
   }
 }
-
+var hebrewSynonymsObj =
+{
+  "info": "Milog",
+  "title": "מילים נרדפות",
+  "align": "right",
+  "url": "http://milog.co.il/$WORD$/s/%D7%A0%D7%A8%D7%93%D7%A4%D7%95%D7%AA",
+  "parser": function(document) {
+    var msg = "";
+    msg += $(document).find(".sr_e_txt")[0].innerText;
+    return msg;
+  }
+}
 // INIT DICTIONARIES
 var langObj =
 {
   // click on english word
   "english": [englishToHebrewObj, englishToSpanishObj, englishToFrenchObj, englishToEnglishObj, englishSynonymsObj],
   // click on hebrew word
-  "hebrew": [hebrewToEnglishObj, hebrewToHebrewObj]
+  "hebrew": [hebrewToEnglishObj, hebrewToHebrewObj, hebrewSynonymsObj]
 }
