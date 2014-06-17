@@ -33,6 +33,10 @@ function parseSelection(selection, output) {
   }
   for (elem in arr) {
     var obj = arr[elem];
-    parseWebDictionary(obj.url.replace("$WORD$", selection), selection, output, obj);
+//    chrome.runtime.sendMessage({method: obj.id}, function (response) {
+      if (obj.active == "true") {
+        parseWebDictionary(obj.url.replace("$WORD$", selection), selection, output, obj);
+      }
+//    });
   }
 }
