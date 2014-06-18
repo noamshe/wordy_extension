@@ -18,7 +18,8 @@ var hebrewToHebrewObj =
     }
     return msg;
   },
-  "active" : ""
+  "active_popup" : "",
+  "active_page" : ""
 }
 var englishToHebrewObj =
 {
@@ -32,7 +33,8 @@ var englishToHebrewObj =
     var msg = elements[0].innerHTML;
     return msg;
   },
-  "active" : ""
+  "active_popup" : "",
+  "active_page" : ""
 };
 var hebrewToEnglishObj =
 {
@@ -51,7 +53,8 @@ var hebrewToEnglishObj =
     }
     return msg;
   },
-  "active" : ""
+  "active_popup" : "",
+  "active_page" : ""
 };
 var englishToSpanishObj =
 {
@@ -66,7 +69,8 @@ var englishToSpanishObj =
     var msg = elements[0].innerHTML;
     return msg;
   },
-  "active" : ""
+  "active_popup" : "",
+  "active_page" : ""
 }
 var englishToFrenchObj =
 {
@@ -81,7 +85,8 @@ var englishToFrenchObj =
     var msg = elements[0].innerHTML;
     return msg;
   },
-  "active" : ""
+  "active_popup" : "",
+  "active_page" : ""
 }
 var englishToEnglishObj =
 {
@@ -101,7 +106,8 @@ var englishToEnglishObj =
     msg += $(iterations[1]).parent().find(".definition")[0].innerHTML;
     return msg;
   },
-  "active" : ""
+  "active_popup" : "",
+  "active_page" : ""
 }
 var englishSynonymsObj =
 {
@@ -115,7 +121,8 @@ var englishSynonymsObj =
     msg += $(document).find("Strong:contains('Synonyms')").parent()[0].innerText;
     return msg;
   },
-  "active" : ""
+  "active_popup" : "",
+  "active_page" : ""
 }
 var hebrewSynonymsObj =
 {
@@ -129,7 +136,8 @@ var hebrewSynonymsObj =
     msg += $(document).find(".sr_e_txt")[0].innerText;
     return msg;
   },
-  "active" : ""
+  "active_popup" : "",
+  "active_page" : ""
 }
 
 // INIT DICTIONARIES
@@ -148,28 +156,53 @@ var langObj =
 }
 $(document).ready(function () {
 
-  chrome.runtime.sendMessage({method: "dictionary_1"}, function (response) {
-    hebrewToHebrewObj.active = response.status;
+  chrome.runtime.sendMessage({method: "dictionary_1_popup"}, function (response) {
+    hebrewToHebrewObj.active_popup = response.status;
   });
-  chrome.runtime.sendMessage({method: "dictionary_2"}, function (response) {
-    englishToHebrewObj.active = response.status;
+  chrome.runtime.sendMessage({method: "dictionary_2_popup"}, function (response) {
+    englishToHebrewObj.active_popup = response.status;
   });
-  chrome.runtime.sendMessage({method: "dictionary_3"}, function (response) {
-    hebrewToEnglishObj.active = response.status;
+  chrome.runtime.sendMessage({method: "dictionary_3_popup"}, function (response) {
+    hebrewToEnglishObj.active_popup = response.status;
   });
-  chrome.runtime.sendMessage({method: "dictionary_4"}, function (response) {
-    englishToSpanishObj.active = response.status;
+  chrome.runtime.sendMessage({method: "dictionary_4_popup"}, function (response) {
+    englishToSpanishObj.active_popup = response.status;
   });
-  chrome.runtime.sendMessage({method: "dictionary_5"}, function (response) {
-    englishToFrenchObj.active = response.status;
+  chrome.runtime.sendMessage({method: "dictionary_5_popup"}, function (response) {
+    englishToFrenchObj.active_popup = response.status;
   });
-  chrome.runtime.sendMessage({method: "dictionary_6"}, function (response) {
-    englishToEnglishObj.active = response.status;
+  chrome.runtime.sendMessage({method: "dictionary_6_popup"}, function (response) {
+    englishToEnglishObj.active_popup = response.status;
   });
-  chrome.runtime.sendMessage({method: "dictionary_7"}, function (response) {
-    englishSynonymsObj.active = response.status;
+  chrome.runtime.sendMessage({method: "dictionary_7_popup"}, function (response) {
+    englishSynonymsObj.active_popup = response.status;
   });
-  chrome.runtime.sendMessage({method: "dictionary_8"}, function (response) {
-    hebrewSynonymsObj.active = response.status;
+  chrome.runtime.sendMessage({method: "dictionary_8_popup"}, function (response) {
+    hebrewSynonymsObj.active_popup = response.status;
+  });
+
+  chrome.runtime.sendMessage({method: "dictionary_1_page"}, function (response) {
+    hebrewToHebrewObj.active_page = response.status;
+  });
+  chrome.runtime.sendMessage({method: "dictionary_2_page"}, function (response) {
+    englishToHebrewObj.active_page= response.status;
+  });
+  chrome.runtime.sendMessage({method: "dictionary_3_page"}, function (response) {
+    hebrewToEnglishObj.active_page= response.status;
+  });
+  chrome.runtime.sendMessage({method: "dictionary_4_page"}, function (response) {
+    englishToSpanishObj.active_page= response.status;
+  });
+  chrome.runtime.sendMessage({method: "dictionary_5_page"}, function (response) {
+    englishToFrenchObj.active_page= response.status;
+  });
+  chrome.runtime.sendMessage({method: "dictionary_6_page"}, function (response) {
+    englishToEnglishObj.active_page= response.status;
+  });
+  chrome.runtime.sendMessage({method: "dictionary_7_page"}, function (response) {
+    englishSynonymsObj.active_page= response.status;
+  });
+  chrome.runtime.sendMessage({method: "dictionary_8_page"}, function (response) {
+    hebrewSynonymsObj.active_page= response.status;
   });
 });

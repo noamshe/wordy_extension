@@ -1,6 +1,21 @@
 /**
  * Created by noam on 14/06/14.
  */
+function detectLanguage(url, word, func, translationObj) {
+  var result1 = "";
+  $.ajax({
+    type: "POST",
+    url: "https://translate.google.com/#auto/iw/" + word,
+    dataType: "text",
+    success: function(result) {
+      var doc = document.implementation.createHTMLDocument (result, 'html',  null);
+      doc.documentElement.innerHTML = result;
+      var detected_language = $(doc).find("div [value='auto']").innerText;
+    },
+    error: function (data, textStatus, jqXHR) { console.log("could not detect language"); }
+  });
+  return result1;
+}
 
 function parseWebDictionary(url, word, func, translationObj) {
   var result1 = "";
@@ -33,10 +48,35 @@ function parseSelection(selection, output) {
   }
   for (elem in arr) {
     var obj = arr[elem];
-//    chrome.runtime.sendMessage({method: obj.id}, function (response) {
-      if (obj.active == "true") {
-        parseWebDictionary(obj.url.replace("$WORD$", selection), selection, output, obj);
-      }
-//    });
+    if (obj["active_" + output.type] == "true") {
+      parseWebDictionary(obj.url.replace("$WORD$", selection), selection, output, obj);
+    }
   }
 }
+
+/* detect language trial
+function parseSelection(selection, output) {
+  $.ajax({
+    type: "POST",
+    url: "https://translate.google.com/#auto/iw/" + selection,
+    dataType: "text",
+    success: function(result) {
+      var doc = document.implementation.createHTMLDocument (result, 'html',  null);
+      doc.documentElement.innerHTML = result;
+      var detected_language = $(doc).find("div [value='auto']")[0].innerHTML;
+      if (isHebrew(selection)) {
+        arr = langObj[output.type].hebrew;
+      } else {
+        arr = langObj[output.type].english;
+      }
+      for (elem in arr) {
+        var obj = arr[elem];
+        if (obj["active_" + output.type] == "true") {
+          parseWebDictionary(obj.url.replace("$WORD$", selection), selection, output, obj);
+        }
+      }
+    },
+    error: function (data, textStatus, jqXHR) { console.log("could not detect language"); }
+  });
+}
+*/
