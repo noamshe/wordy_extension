@@ -68,7 +68,7 @@ function parseSelection(selection, output) {
         arr = langObj[output.type].hebrew;
       } else if (detected_language == "en") {
         arr = langObj[output.type].english;
-      } else if (detected_language == "es") {
+      } else if (detected_language == "es" || detected_language == "fr") {
         arr = langObj[output.type].spanish;
       } else {
 	console.log("could not detect language: " + detected_language);
