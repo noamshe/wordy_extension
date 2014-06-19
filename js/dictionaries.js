@@ -33,8 +33,8 @@ var englishToHebrewObj =
     var msg = elements[0].innerHTML;
     return msg;
   },
-  "active_popup" : "",
-  "active_page" : ""
+  "active_popup" : "true",
+  "active_page" : "true"
 };
 var hebrewToEnglishObj =
 {
@@ -45,7 +45,6 @@ var hebrewToEnglishObj =
   "url":"http://www.morfix.co.il/$WORD$",
   "parser": function(document) {
     var msg = "";
-//    var elements = doc.getElementsByClassName("default_trans");
     var elements = $(document).find('.default_trans');
     for (var i=0;i<elements.size();i++) {
       msg += elements[i].innerHTML.trim();
@@ -53,8 +52,8 @@ var hebrewToEnglishObj =
     }
     return msg;
   },
-  "active_popup" : "",
-  "active_page" : ""
+  "active_popup" : "true",
+  "active_page" : "true"
 };
 var englishToSpanishObj =
 {
@@ -139,21 +138,22 @@ var hebrewSynonymsObj =
   "active_popup" : "",
   "active_page" : ""
 }
-
-// INIT DICTIONARIES
-var langObj =
+var spanishToHebrew =
 {
-  "page" :
-  {
-    "english": [englishToHebrewObj, englishToSpanishObj, englishToFrenchObj, englishToEnglishObj, englishSynonymsObj],
-    "hebrew": [hebrewToEnglishObj, hebrewToHebrewObj, hebrewSynonymsObj]
+  "id" : "dictionary_9",
+  "info": "babylon",
+  "title": "hebrew",
+  "align": "right",
+  "url": "http://www.babylon.co.il/definition/$WORD$/hebrew",
+  "parser": function(document) {
+    var msg = "";
+    msg += $(document).find(".term").next()[0].innerText;
+    return msg;
   },
-  "popup" :
-  {
-    "english": [englishToHebrewObj, englishToSpanishObj, englishToFrenchObj, englishToEnglishObj, englishSynonymsObj],
-    "hebrew": [hebrewToEnglishObj, hebrewToHebrewObj, hebrewSynonymsObj]
-  }
+  "active_popup" : "true",
+  "active_page" : "true"
 }
+
 $(document).ready(function () {
 
   chrome.runtime.sendMessage({method: "dictionary_1_popup"}, function (response) {
@@ -206,3 +206,20 @@ $(document).ready(function () {
     hebrewSynonymsObj.active_page= response.status;
   });
 });
+
+// INIT DICTIONARIES
+var langObj =
+{
+  "page" :
+  {
+    "english": [englishToHebrewObj, englishToSpanishObj, englishToFrenchObj, englishToEnglishObj, englishSynonymsObj],
+    "hebrew": [hebrewToEnglishObj, hebrewToHebrewObj, hebrewSynonymsObj],
+    "spanish": [spanishToHebrew]
+  },
+  "popup" :
+  {
+    "english": [englishToHebrewObj, englishToSpanishObj, englishToFrenchObj, englishToEnglishObj, englishSynonymsObj],
+    "hebrew": [hebrewToEnglishObj, hebrewToHebrewObj, hebrewSynonymsObj],
+    "spanish": [spanishToHebrew]
+  }
+}

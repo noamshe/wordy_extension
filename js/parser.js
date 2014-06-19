@@ -63,10 +63,20 @@ function parseSelection(selection, output) {
     dataType: "text",
     success: function(result) {
       var detected_language = result.substr(result.indexOf("\"") + 1, 2);
+      console.log(detected_language);
       if (detected_language == "iw") {
         arr = langObj[output.type].hebrew;
       } else if (detected_language == "en") {
         arr = langObj[output.type].english;
+      } else if (detected_language == "es") {
+        arr = langObj[output.type].spanish;
+      } else {
+	console.log("could not detect language: " + detected_language);
+  	if (isHebrew(selection)) {
+    	  arr = langObj[output.type].hebrew;
+  	} else {
+    	  arr = langObj[output.type].english;
+  	}
       }
       for (elem in arr) {
         var obj = arr[elem];
