@@ -39,7 +39,7 @@ function parseResultDocument(result, word, tranlationObj) {
 
   return msg;
 }
-
+/*
 function parseSelection(selection, output) {
   if (isHebrew(selection)) {
     arr = langObj[output.type].hebrew;
@@ -53,20 +53,19 @@ function parseSelection(selection, output) {
     }
   }
 }
+*/
 
-/* detect language trial
+// detect language trial
 function parseSelection(selection, output) {
   $.ajax({
     type: "POST",
-    url: "https://translate.google.com/#auto/iw/" + selection,
+    url: LANGUAGE_DETECT_URL + selection,
     dataType: "text",
     success: function(result) {
-      var doc = document.implementation.createHTMLDocument (result, 'html',  null);
-      doc.documentElement.innerHTML = result;
-      var detected_language = $(doc).find("div [value='auto']")[0].innerHTML;
-      if (isHebrew(selection)) {
+      var detected_language = result.substr(result.indexOf("\"") + 1, 2);
+      if (detected_language == "iw") {
         arr = langObj[output.type].hebrew;
-      } else {
+      } else if (detected_language == "en") {
         arr = langObj[output.type].english;
       }
       for (elem in arr) {
@@ -79,4 +78,3 @@ function parseSelection(selection, output) {
     error: function (data, textStatus, jqXHR) { console.log("could not detect language"); }
   });
 }
-*/
