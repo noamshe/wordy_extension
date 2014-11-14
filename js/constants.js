@@ -10,6 +10,8 @@ var BOX_OUT_SPEED = 500; //0.5 sec
 var DB_SERVER = "http://ec2-54-201-117-105.us-west-2.compute.amazonaws.com/";
 var GET_ALL_WORDS_METHOD = "1.php";
 var SAVE_WORD_METHOD = "2.php";
+var ADD_THEME_METHOD = "3.php";
+var LOAD_THEMES_METHOD = "4.php";
 
 // Strings
 var ADDED_TO_DB_TEXT = ".המילה התווספה למאגר";

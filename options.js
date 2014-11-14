@@ -75,5 +75,46 @@ $(function () {
   $('#dictionary_8_page').bind('click', function () {
     localStorage['dictionary_8_page'] = $(this).prop('checked');
   });
+
+  // loading themes
+  loadThemes = function () {
+    $('#theme_select_multiple').empty();
+    $.ajax({
+      type: "POST",
+      url: DB_SERVER + LOAD_THEMES_METHOD,
+      dataType: "text",
+      success: function (result) {
+        var result = JSON.parse(result);
+        console.log(result);
+        var themes_select = $("#theme_select_multiple");
+        for (k = 0; k < result.length; k++)
+          themes_select.append("<option value='" + result[k]+ "'>" + result[k] + "</option>");
+      },
+      error: function (result) {
+        console.log(result);
+      }
+    });
+  };
+
+  $('#add_theme_button').bind('click', function () {
+    var theme_name = $('#theme_input').val();
+    $('#add_theme_result').text("")
+    $.ajax({
+      type: "POST",
+      url: DB_SERVER + ADD_THEME_METHOD,
+      data: "name=" + theme_name,
+      dataType: "text",
+      success: function (result) {
+        $('#add_theme_result').text("saved.")
+        loadThemes();
+      }
+    });
+  });
+
+  $("#theme_select_multiple").dblclick(function () {
+    console.log($("#theme_select_multiple select option:selected").val());
+  });
+
+  loadThemes();
 });
 
