@@ -84,11 +84,18 @@ $(function () {
       url: DB_SERVER + LOAD_THEMES_METHOD,
       dataType: "text",
       success: function (result) {
-        var result = JSON.parse(result);
         console.log(result);
+        var result = JSON.parse(result);
+        console.log(result[1]);
         var themes_select = $("#theme_select_multiple");
+        for (var key in result) {
+          if (result.hasOwnProperty(key)) {
+            console.log(key + " -> " + result[key]);
+            themes_select.append("<option value='" + key + "'>" + result[key] + "</option>");
+          }
+        }
         for (k = 0; k < result.length; k++)
-          themes_select.append("<option value='" + result[k]+ "'>" + result[k] + "</option>");
+          themes_select.append("<option value='" + result[k][0]+ "'>" + result[k][1] + "</option>");
       },
       error: function (result) {
         console.log(result);
