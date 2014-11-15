@@ -13,6 +13,7 @@ var SAVE_WORD_METHOD = "2.php";
 var ADD_THEME_METHOD = "3.php";
 var LOAD_THEMES_METHOD = "4.php";
 var SHOW_ALL_WORD_HTML = "5.php";
+var GET_THEME_WORDS = "6.php";
 
 // Strings
 var ADDED_TO_DB_TEXT = ".המילה התווספה למאגר";

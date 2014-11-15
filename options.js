@@ -94,8 +94,6 @@ $(function () {
             themes_select.append("<option value='" + key + "'>" + result[key] + "</option>");
           }
         }
-        for (k = 0; k < result.length; k++)
-          themes_select.append("<option value='" + result[k][0]+ "'>" + result[k][1] + "</option>");
       },
       error: function (result) {
         console.log(result);
@@ -120,6 +118,26 @@ $(function () {
 
   $("#theme_select_multiple").dblclick(function () {
     console.log($("#theme_select_multiple select option:selected").val());
+  });
+
+  $("#theme_select_multiple" ).change(function() {
+    var theme_id = $("select option:selected").val();
+    $.ajax({
+      type: "POST",
+      url: DB_SERVER + GET_THEME_WORDS,
+      data: "id=" + theme_id,
+      dataType: "text",
+      success: function (result) {
+        var theme_list = $("#theme_list");
+        theme_list.empty();
+        result = JSON.parse(result);
+        for (var key in result) {
+          if (result.hasOwnProperty(key)) {
+            theme_list.append("<li>" + result[key] + "</li>");
+          }
+        }
+      }
+    });
   });
 
   loadThemes();

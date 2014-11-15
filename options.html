@@ -3,59 +3,93 @@
     <script src="js/jquery/jquery-1.10.2.js"></script>
     <script src="js/constants.js"></script>
     <script src="options.js"></script>
+    <!-- Latest compiled and minified CSS -->
+    <!--<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">-->
+    <link rel="stylesheet" href="css/bootstrap3.2.0.css">
+    <!-- Optional: Include the jQuery library -->
+    <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>-->
+    <!-- Optional: Incorporate the Bootstrap JavaScript plugins -->
+    <!--<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>-->
+    <script src="js/bootstrap/bootstrap.min.js"></script>
   </head>
   <body>
-    Version 2.0
+    <div class="container">
+      <div class="row">
+        <div class="col-*-*">
+          <br/>
+          <br/>
+          <label>Version 2.0</label>
+          <br/>
+          <br/>
+          Options:
+          <br/>
+          <input id='mark_words' type='checkbox'/> mark words
+          <br/>
+          <input id='append_words' type='checkbox'/> Save any word
+          <br/>
+          <br/>
+          Popup Dictionaries
+          <br/>
+          <input id='dictionary_1_popup' type='checkbox'/> Hebrew To Hebrew
+          <input id='dictionary_2_popup' type='checkbox'/> English To Hebrew
+          <input id='dictionary_3_popup' type='checkbox'/> Hebrew To English
+          <input id='dictionary_4_popup' type='checkbox'/> English To Spanish
+          <input id='dictionary_5_popup' type='checkbox'/> English To French
+          <input id='dictionary_6_popup' type='checkbox'/> English To English
+          <input id='dictionary_7_popup' type='checkbox'/> English Synonyms
+          <input id='dictionary_8_popup' type='checkbox'/> Hebrew Synonyms
+          <br/>
+          Page Dictionaries
+          <br/>
+          <input id='dictionary_1_page' type='checkbox'/> Hebrew To Hebrew
+          <input id='dictionary_2_page' type='checkbox'/> English To Hebrew
+          <input id='dictionary_3_page' type='checkbox'/> Hebrew To English
+          <input id='dictionary_4_page' type='checkbox'/> English To Spanish
+          <input id='dictionary_5_page' type='checkbox'/> English To French
+          <input id='dictionary_6_page' type='checkbox'/> English To English
+          <input id='dictionary_7_page' type='checkbox'/> English Synonyms
+          <input id='dictionary_8_page' type='checkbox'/> Hebrew Synonyms
+          <br/>
+          <br/>
+          <br/>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-4">
+          <label>Theme Name:</label><input id='theme_input' type='text' class="form-control"/>
+          <br/>
+          <button id="add_theme_button" type="submit" value="Submit" class="btn btn-primary">Create Theme</button>
+          <br/>
+          <br/>
+          <br/>
+          <label>Themes List</label>
+          <select id="theme_select_multiple" multiple class="form-control"></select>
+          <span id="add_theme_result"></span>
+        </div>
+        <div class="col-md-4">
+          <ul id="theme_list">
+            <li>noam</li>
+            <li>shemesh</li>
+          </ul>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-*-*">
+          <br/>
+          noamshe@gmail.com July/2014
+          <br/>
+          noamshe@gmail.com November/2014
+          <br/>
+        </div>
+      </div>
+    </div>
     <br/>
     <br/>
-    Options:
-    <br/>
-    <input id='mark_words' type='checkbox'/> mark words
-    <br/>
-    <input id='append_words' type='checkbox'/> Save any word
-    <br/>
-    <br/>
-    Popup Dictionaries
-    <br/>
-    <input id='dictionary_1_popup' type='checkbox'/> Hebrew To Hebrew
-    <input id='dictionary_2_popup' type='checkbox'/> English To Hebrew
-    <input id='dictionary_3_popup' type='checkbox'/> Hebrew To English
-    <input id='dictionary_4_popup' type='checkbox'/> English To Spanish
-    <input id='dictionary_5_popup' type='checkbox'/> English To French
-    <input id='dictionary_6_popup' type='checkbox'/> English To English
-    <input id='dictionary_7_popup' type='checkbox'/> English Synonyms
-    <input id='dictionary_8_popup' type='checkbox'/> Hebrew Synonyms
-    <br/>
-    Page Dictionaries
-    <br/>
-    <input id='dictionary_1_page' type='checkbox'/> Hebrew To Hebrew
-    <input id='dictionary_2_page' type='checkbox'/> English To Hebrew
-    <input id='dictionary_3_page' type='checkbox'/> Hebrew To English
-    <input id='dictionary_4_page' type='checkbox'/> English To Spanish
-    <input id='dictionary_5_page' type='checkbox'/> English To French
-    <input id='dictionary_6_page' type='checkbox'/> English To English
-    <input id='dictionary_7_page' type='checkbox'/> English Synonyms
-    <input id='dictionary_8_page' type='checkbox'/> Hebrew Synonyms
     <br/>
     <br/>
     <br/>
-    Theme Name: <input id='theme_input' type='text'/>
-    <button id="add_theme_button" type="submit" value="Submit">Create Theme</button>
-    <br/>
-    <span id="add_theme_result"></span>
-    <br/>
-    <br/>
-    Themes
-    <br/>
-    <select id="theme_select_multiple" multiple></select>
-    <br/>
-    <br/>
-    <br/>
-    noamshe@gmail.com July/2014
-    <br/>
-    noamshe@gmail.com November/2014
     <br/>
   </body>
 </html>
-~                                                                                                                                               
+~
 ~                      
