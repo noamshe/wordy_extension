@@ -1,0 +1,1 @@
+ create table themes (id int auto_increment not null, name varchar(32), created_at datetime, primary key (id));
