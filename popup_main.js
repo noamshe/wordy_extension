@@ -3,7 +3,17 @@
  */
 $("#help_text_1").html(POPUP_HELP_TEXT_1);
 $("#help_text_2").html(POPUP_HELP_TEXT_2);
+
+chrome.runtime.sendMessage({method: "activated_theme"}, function (response) {
+  console.log(response.status);
+//  if (response.status != "false") {
+    $('<input title="' + response.status + '" src="img/pinIn.png" style="margin-left:5px; height:24px;" type="image" value="Search"/>').insertAfter("#search");
+//    $('<input title="hi" src="img/pinIn.png" style="margin-left:5px; height:24px;" type="image" value="Search"/>').insertAfter("#search");
+//  }
+});
+
 $("#search_from_popup").submit(function(event) {
+
   event.preventDefault();
 
   $("#result").html('');

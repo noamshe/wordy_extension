@@ -76,6 +76,25 @@ $(function () {
     localStorage['dictionary_8_page'] = $(this).prop('checked');
   });
 
+  activateTheme = function (theme_name) {
+    $("#activate_theme_button").text("Deactivate Theme");
+    $("#activate_panel").removeClass("bg-info").addClass("bg-danger");
+    $("#activate_panel").text(theme_name);
+    localStorage['activated_theme'] = theme_name;
+  }
+  deactivateTheme = function (theme_name) {
+    $("#activate_theme_button").text("Activate Theme");
+    $("#activate_panel").removeClass("bg-danger").addClass("bg-info");
+    $("#activate_panel").text("No Activated Theme");
+    localStorage['activated_theme'] = "false";
+  }
+
+  if (localStorage['activated_theme'] == undefined || localStorage['activated_theme'] == "false") {
+    deactivateTheme();
+  } else {
+    activateTheme(localStorage['activated_theme']);
+  }
+
   // loading themes
   loadThemes = function () {
     $('#theme_select_multiple').empty();
@@ -101,23 +120,31 @@ $(function () {
     });
   };
 
-  $('#add_theme_button').bind('click', function () {
-    var theme_name = $('#theme_input').val();
-    $('#add_theme_result').text("")
-    $.ajax({
-      type: "POST",
-      url: DB_SERVER + ADD_THEME_METHOD,
-      data: "name=" + theme_name,
-      dataType: "text",
-      success: function (result) {
-        $('#add_theme_result').text("saved.")
-        loadThemes();
+  $('#activate_theme_button').bind('click', function () {
+    if ($("#activate_theme_button").text() == "Activate Theme") {
+      if ($("select option:selected").val() != undefined) {
+        activateTheme($("select option:selected").text());
       }
-    });
+    } else {
+      deactivateTheme();
+    }
   });
 
-  $("#theme_select_multiple").dblclick(function () {
-    console.log($("#theme_select_multiple select option:selected").val());
+  $('#add_theme_button').bind('click', function () {
+    var theme_name = $('#theme_input').val();
+    if (theme_name.length > 0) {
+      $('#add_theme_result').text("")
+      $.ajax({
+        type: "POST",
+        url: DB_SERVER + ADD_THEME_METHOD,
+        data: "name=" + theme_name,
+        dataType: "text",
+        success: function (result) {
+          $('#add_theme_result').text("saved.")
+          loadThemes();
+        }
+      });
+    }
   });
 
   $("#theme_select_multiple" ).change(function() {

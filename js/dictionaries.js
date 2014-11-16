@@ -185,25 +185,25 @@ $(document).ready(function () {
     hebrewToHebrewObj.active_page = response.status;
   });
   chrome.runtime.sendMessage({method: "dictionary_2_page"}, function (response) {
-    englishToHebrewObj.active_page= response.status;
+    englishToHebrewObj.active_page = response.status;
   });
   chrome.runtime.sendMessage({method: "dictionary_3_page"}, function (response) {
-    hebrewToEnglishObj.active_page= response.status;
+    hebrewToEnglishObj.active_page = response.status;
   });
   chrome.runtime.sendMessage({method: "dictionary_4_page"}, function (response) {
-    englishToSpanishObj.active_page= response.status;
+    englishToSpanishObj.active_page = response.status;
   });
   chrome.runtime.sendMessage({method: "dictionary_5_page"}, function (response) {
-    englishToFrenchObj.active_page= response.status;
+    englishToFrenchObj.active_page = response.status;
   });
   chrome.runtime.sendMessage({method: "dictionary_6_page"}, function (response) {
-    englishToEnglishObj.active_page= response.status;
+    englishToEnglishObj.active_page = response.status;
   });
   chrome.runtime.sendMessage({method: "dictionary_7_page"}, function (response) {
-    englishSynonymsObj.active_page= response.status;
+    englishSynonymsObj.active_page = response.status;
   });
   chrome.runtime.sendMessage({method: "dictionary_8_page"}, function (response) {
-    hebrewSynonymsObj.active_page= response.status;
+    hebrewSynonymsObj.active_page = response.status;
   });
 });
 
