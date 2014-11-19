@@ -154,7 +154,7 @@ $(function () {
     $.ajax({
       type: "POST",
       url: DB_SERVER + GET_THEME_WORDS,
-      data: "id=" + theme_id,
+      data: "theme_id=" + theme_id,
       dataType: "text",
       success: function (result) {
         var theme_list = $("#theme_list");
