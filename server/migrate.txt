@@ -9,7 +9,7 @@
    def3 VARCHAR(512),
    count INT DEFAULT 0,
    checked BOOLEAN DEFAULT 0,
-   theme_id INT DEFAULT NULL,
+   theme_id INT DEFAULT 0,
    updated_at DATETIME,
    created_at DATETIME,
    PRIMARY KEY (id),

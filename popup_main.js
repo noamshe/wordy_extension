@@ -17,6 +17,7 @@ $("#search_from_popup").submit(function(event) {
 
   $("#result").html('');
 
+  // todo get the theme id here and send this
   var theme = $("#theme_search").attr("title");
   var word = $("#word_id").val();
 
