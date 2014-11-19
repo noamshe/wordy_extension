@@ -20,17 +20,14 @@ $("#search_from_popup").submit(function(event) {
   var theme_id = $("#theme_search").data("themeId");
   var word = $("#word_id").val();
 
-  var saveToDBOnce = false;
+  // todo take that save to db will happen only once
   var res = parseSelection(word, {"output" : function(result, word, translationObj) {
     var msg = parseResultDocument(result, word, translationObj);
     $("#result").append('<div style="background-color: ' + LANGUAGE_SEPERATOR_COLOR + '; display: block">' + translationObj.title + '</div>');
     $("#result").append('<div style="text-align: ' +  translationObj.align + '">' + msg + '</div>');
-    if (!saveToDBOnce) {
-      saveToDBOnce = true;
-      addWordToDB(word, msg, theme_id, function(){
-        $("#result2").html(ADDED_TO_DB_TEXT);
-      });
-    }
+    addWordToDB(word, msg, theme_id, function(){
+      $("#result2").html(ADDED_TO_DB_TEXT);
+    });
   },
   "type" : "popup"});
 });
