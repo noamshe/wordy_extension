@@ -76,23 +76,25 @@ $(function () {
     localStorage['dictionary_8_page'] = $(this).prop('checked');
   });
 
-  activateTheme = function (theme_name) {
+  activateTheme = function (theme_name, theme_id) {
     $("#activate_theme_button").text("Deactivate Theme");
     $("#activate_panel").removeClass("bg-info").addClass("bg-danger");
     $("#activate_panel").text(theme_name);
     localStorage['activated_theme'] = theme_name;
+    localStorage['activated_theme_id'] = theme_id;
   }
   deactivateTheme = function (theme_name) {
     $("#activate_theme_button").text("Activate Theme");
     $("#activate_panel").removeClass("bg-danger").addClass("bg-info");
     $("#activate_panel").text("No Activated Theme");
     localStorage['activated_theme'] = "false";
+    localStorage['activated_theme_id'] = "0";
   }
 
   if (localStorage['activated_theme'] == undefined || localStorage['activated_theme'] == "false") {
     deactivateTheme();
   } else {
-    activateTheme(localStorage['activated_theme']);
+    activateTheme(localStorage['activated_theme'], localStorage['activated_theme_id']);
   }
 
   // loading themes
@@ -123,7 +125,7 @@ $(function () {
   $('#activate_theme_button').bind('click', function () {
     if ($("#activate_theme_button").text() == "Activate Theme") {
       if ($("select option:selected").val() != undefined) {
-        activateTheme($("select option:selected").text());
+        activateTheme($("select option:selected").text(), $("select option:selected").val());
       }
     } else {
       deactivateTheme();

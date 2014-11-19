@@ -71,12 +71,12 @@ function parseSelection(selection, output) {
       } else if (detected_language == "es" || detected_language == "fr") {
         arr = langObj[output.type].spanish;
       } else {
-	console.log("could not detect language: " + detected_language);
-  	if (isHebrew(selection)) {
-    	  arr = langObj[output.type].hebrew;
-  	} else {
-    	  arr = langObj[output.type].english;
-  	}
+        console.log("could not detect language: " + detected_language);
+        if (isHebrew(selection)) {
+          arr = langObj[output.type].hebrew;
+        } else {
+          arr = langObj[output.type].english;
+        }
       }
       for (elem in arr) {
         var obj = arr[elem];

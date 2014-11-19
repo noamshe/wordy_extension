@@ -7,7 +7,7 @@
    def1 VARCHAR(1024),
    def2 VARCHAR(512),
    def3 VARCHAR(512),
-   count INT DEFAULT 0,
+   count INT DEFAULT 1,
    checked BOOLEAN DEFAULT 0,
    theme_id INT DEFAULT 0,
    updated_at DATETIME,

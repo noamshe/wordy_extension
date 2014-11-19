@@ -21,7 +21,7 @@ $(document).ready(function () {
   var inPageOutput = function(result, word, translationObj) {
     var msg = parseResultDocument(result, word, translationObj);
     showControls(msg, translationObj);
-    addWordToDB(word, msg, function(){});
+    addWordToDB(word, msg, 0, function(){});
   }
 
   chrome.runtime.sendMessage({method: "getStatus"}, function (response) {

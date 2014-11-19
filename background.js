@@ -40,7 +40,7 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
   else if (request.method == "dictionary_8_page")
     sendResponse({status: localStorage['dictionary_8_page']});
   else if (request.method == "getTheme")
-    sendResponse({status: localStorage['activated_theme']});
+    sendResponse({theme_name: localStorage['activated_theme'], theme_id: localStorage['activated_theme_id']});
   else
     sendResponse({});
 })
