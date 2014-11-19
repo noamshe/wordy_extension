@@ -106,22 +106,24 @@ var resultFunction1 = function(result, word) {
 //}
 
 function addWordToDB(word, definition, theme, func) {
-  chrome.runtime.sendMessage({method: "append_words"}, function (response) {
-    console.log("save word to db: " + response.status);
-    if (response.status == "true") {
-      var theme_id = theme == undefined ? 0 : theme;
-      $.ajax({
-        type: "POST",
-        //url: "http://ec2-54-201-117-105.us-west-2.compute.amazonaws.com/2.php",
-        url: DB_SERVER + SAVE_WORD_METHOD,
-        data: "word=" + word + "&def1=" + definition + "&theme=" + theme_id,
-        dataType: "text",
-        success: function() {
-          func();
-        }
-      });
-    }
-  });
+  if (definition.length != 0) {
+    chrome.runtime.sendMessage({method: "append_words"}, function (response) {
+      console.log("save word to db: " + response.status);
+      if (response.status == "true") {
+        var theme_id = theme == undefined ? 0 : theme;
+        $.ajax({
+          type: "POST",
+          //url: "http://ec2-54-201-117-105.us-west-2.compute.amazonaws.com/2.php",
+          url: DB_SERVER + SAVE_WORD_METHOD,
+          data: "word=" + word + "&def1=" + definition + "&theme=" + theme_id,
+          dataType: "text",
+          success: function() {
+            func();
+          }
+        });
+      }
+    });
+  }
 }
 
 function addGlobalStyle(css) {

@@ -162,7 +162,7 @@ $(function () {
         result = JSON.parse(result);
         for (var key in result) {
           if (result.hasOwnProperty(key)) {
-            theme_list.append("<li>" + result[key] + "</li>");
+            theme_list.append("<li class='list-group-item'>" + result[key] + "<input src='img/pinIn.png' style='float:right' type='image'/></li>");
           }
         }
       }
