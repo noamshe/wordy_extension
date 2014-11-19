@@ -26,7 +26,7 @@ function parseWebDictionary(url, word, func, translationObj) {
     success: function(result) {
       func.output(result, word, translationObj)
     },
-    error: function (data, textStatus, jqXHR) { console.log(textStatus); } // tbd add webkit message for error "something bad happend"
+    error: function (data, textStatus, jqXHR) { console.log(textStatus); } // tbd add webkit message for error "something bad happened"
   });
   return result1;
 }
