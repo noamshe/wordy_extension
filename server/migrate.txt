@@ -1,1 +1,17 @@
- create table themes (id int auto_increment not null, name varchar(32), created_at datetime, primary key (id));
+
+ CREATE TABLE themes (id INT AUTO_INCREMENT NOT NULL, name VARCHAR(32), created_at DATETIME, PRIMARY KEY (id));
+
+ CREATE TABLE archive (
+   id INT AUTO_INCREMENT NOT NULL,
+   word VARCHAR(64),
+   def1 VARCHAR(1024),
+   def2 VARCHAR(512),
+   def3 VARCHAR(512),
+   count INT DEFAULT 0,
+   checked BOOLEAN DEFAULT 0,
+   theme_id INT DEFAULT NULL,
+   updated_at DATETIME,
+   created_at DATETIME,
+   PRIMARY KEY (id),
+   UNIQUE KEY (`word`, `theme_id`));
+

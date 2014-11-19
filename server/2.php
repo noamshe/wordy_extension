@@ -9,8 +9,9 @@
   if (mysqli_connect_errno()) {
     echo "Failed to connect to MySQL: " . mysqli_connect_error();
   }
-  //insert into archive (word,def1,def2,def3, created_at) values ("word2","def1","def2","def3", now());
-  mysqli_query($con, 'insert into archive (word,def1,def2,def3, created_at) values ("'.$_POST["word"].'","'.$_POST["def1"].'","def2","def3", now())');
+  //mysqli_query($con, 'INSERT INTO archive (word, def1, def2, def3, updated_at, created_at) VALUES ("'.$_POST["word"].'","'.$_POST["def1"].'","def2", "def3", now(), now()) ON DUPLICATE KEY UPDATE updated_at = now(), count = count + 1');
+  // INSERT INTO archive (word, def1, def2, def3, theme_id, updated_at, created_at) VALUES ("check","bla","def2","def3", 1, now(), now()) ON DUPLICATE KEY UPDATE updated_at = now(), count = count + 1;
+  mysqli_query($con, 'INSERT INTO archive (word, def1, def2, def3, theme_id, updated_at, created_at) VALUES ("'.$_POST["word"].'","'.$_POST["def1"].'","def2","def3", '.$_POST["theme"].', now(), now()) ON DUPLICATE KEY UPDATE updated_at = now(), count = count + 1');
 
   mysqli_close($con);
 

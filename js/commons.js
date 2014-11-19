@@ -105,7 +105,7 @@ var resultFunction1 = function(result, word) {
 //  addWordToDB(word, msg, function(){});
 //}
 
-function addWordToDB(word, definition, func) {
+function addWordToDB(word, definition, theme, func) {
   chrome.runtime.sendMessage({method: "append_words"}, function (response) {
     console.log("save word to db: " + response.status);
     if (response.status == "true") {
@@ -113,7 +113,7 @@ function addWordToDB(word, definition, func) {
         type: "POST",
         //url: "http://ec2-54-201-117-105.us-west-2.compute.amazonaws.com/2.php",
         url: DB_SERVER + SAVE_WORD_METHOD,
-        data: "word=" + word + "&def1=" + definition,
+        data: "word=" + word + "&def1=" + definition + "&theme=" + "2",
         dataType: "text",
         success: function() {
           func();
