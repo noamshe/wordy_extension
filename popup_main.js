@@ -21,6 +21,7 @@ $("#search_from_popup").submit(function(event) {
   var word = $("#word_id").val();
 
   // todo take that save to db will happen only once
+  // todo add to translation object the savetodb flag
   var res = parseSelection(word, {"output" : function(result, word, translationObj) {
     var msg = parseResultDocument(result, word, translationObj);
     $("#result").append('<div style="background-color: ' + LANGUAGE_SEPERATOR_COLOR + '; display: block">' + translationObj.title + '</div>');
