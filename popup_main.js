@@ -7,7 +7,7 @@ $("#help_text_2").html(POPUP_HELP_TEXT_2);
 chrome.runtime.sendMessage({method: "getTheme"}, function (response) {
   console.log(response.theme_name);
   if (response.theme_name != "false") {
-    $('<input id="theme_search" data-theme-id = "' + response.theme_id + '" title="' + response.theme_name + '" src="img/pinIn.png" style="margin-left:5px; height:24px;" type="image" value="Search"/>').insertAfter("#search");
+    $('<img id="theme_search" data-theme-id = "' + response.theme_id + '" title="' + response.theme_name + '" src="' + POPUP_THEME_ICON + '" style="float:left; margin-left:5px; height:24px;" type="image" value="Search"/><div style="margin-top:3px; margin-left:32px; color:#AF5500; text-align: center; width:158px; border: 1px solid; background-color: #FFD732">' + response.theme_name + '</div></br>').insertAfter("#space");
   }
 });
 

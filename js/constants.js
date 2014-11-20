@@ -14,6 +14,7 @@ var ADD_THEME_METHOD = "3.php";
 var LOAD_THEMES_METHOD = "4.php";
 var SHOW_ALL_WORD_HTML = "5.php";
 var GET_THEME_WORDS = "6.php";
+var DELETE_WORD = "7.php";
 
 // Strings
 var ADDED_TO_DB_TEXT = ".המילה התווספה למאגר";
@@ -24,6 +25,8 @@ var POPUP_HELP_TEXT_2 = "mark adjacent words and use " + MARK_SHORT_CUT;
 var BOX_CLOSE_IMAGE = "img/cross-circle.png";
 var BOX_SAVE_WORD_IMAGE = "img/disk-red.png";
 var BOX_SAVE_AND_HIGHLIGHT_IMAGE = "img/16.png";
+var POPUP_THEME_ICON = "img/theme_icon.png";
+var OPTIONS_THEME_DELETE_ICON = "img/trash10.png";
 
 // POPUP
 var LANGUAGE_SEPERATOR_COLOR = "#FF9966";

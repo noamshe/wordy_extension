@@ -149,6 +149,29 @@ $(function () {
     }
   });
 
+  refresh_list = function(result) {
+    var theme_list = $("#theme_list");
+    theme_list.empty();
+    result = JSON.parse(result);
+    for (var key in result) {
+      if (result.hasOwnProperty(key)) {
+        theme_list.append("<li id='li_" + key + "' class='list-group-item'>" + result[key] + "<img id='" + key + "' data-id='" + key + "' src='" + OPTIONS_THEME_DELETE_ICON + "' style='cursor:pointer; float:right' type='image'/></li>");
+        $('#' + key).bind('click', function (event) {
+          $.ajax({
+            type: "POST",
+            url: DB_SERVER + DELETE_WORD,
+            data: "id=" + event.target.id,
+            dataType: "text",
+            success: function (result) {
+//              alert(event.target.id + " deleted");
+              $("#li_" + event.target.id).remove();
+            }
+          });
+        });
+      }
+    }
+  }
+
   $("#theme_select_multiple" ).change(function() {
     var theme_id = $("select option:selected").val();
     $.ajax({
@@ -157,14 +180,7 @@ $(function () {
       data: "theme_id=" + theme_id,
       dataType: "text",
       success: function (result) {
-        var theme_list = $("#theme_list");
-        theme_list.empty();
-        result = JSON.parse(result);
-        for (var key in result) {
-          if (result.hasOwnProperty(key)) {
-            theme_list.append("<li class='list-group-item'>" + result[key] + "<input src='img/pinIn.png' style='float:right' type='image'/></li>");
-          }
-        }
+        refresh_list(result);
       }
     });
   });
