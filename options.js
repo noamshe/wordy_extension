@@ -155,7 +155,7 @@ $(function () {
     result = JSON.parse(result);
     for (var key in result) {
       if (result.hasOwnProperty(key)) {
-        theme_list.append("<li id='li_" + key + "' class='list-group-item'>" + result[key] + "<img id='" + key + "' data-id='" + key + "' src='" + OPTIONS_THEME_DELETE_ICON + "' style='cursor:pointer; float:right' type='image'/></li>");
+        theme_list.append("<li id='li_" + key + "' class='list-group-item'>" + result[key].word + "<img id='" + key + "' data-id='" + key + "' src='" + OPTIONS_THEME_DELETE_ICON + "' style='cursor:pointer; float:right' type='image'/></li>");
         $('#' + key).bind('click', function (event) {
           $.ajax({
             type: "POST",
