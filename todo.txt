@@ -2,3 +2,4 @@ add column for number of time the word was searched
 add column for the computer name it was searched at
 finish the themes
 maybe finish the mark words, but this time send the words in the page to the server and not vice verca
+bla
