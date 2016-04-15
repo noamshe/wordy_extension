@@ -39,7 +39,7 @@ function parseResultDocument(result, word, tranlationObj) {
 
   return msg;
 }
-/*
+
 function parseSelection(selection, output) {
   if (isHebrew(selection)) {
     arr = langObj[output.type].hebrew;
@@ -53,9 +53,9 @@ function parseSelection(selection, output) {
     }
   }
 }
-*/
 
 // detect language trial
+/*
 function parseSelection(selection, output) {
   $.ajax({
     type: "POST",
@@ -88,3 +88,4 @@ function parseSelection(selection, output) {
     error: function (data, textStatus, jqXHR) { console.log("could not detect language"); }
   });
 }
+*/
