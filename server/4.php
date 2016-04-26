@@ -9,7 +9,11 @@
 
   $arr = array();
   while($row = mysqli_fetch_array($result)) {
-    array_push($arr, $row['name']);
+    $jsonObject = array();
+    $jsonObject['id'] = $row['id'];
+    $jsonObject['name'] = $row['name'];
+    //array_push($arr, $row['name']);
+    array_push($arr, $jsonObject);
   }
 
   $jsonArray = json_encode($arr);
