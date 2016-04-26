@@ -113,8 +113,7 @@ $(function () {
           if (result.hasOwnProperty(key)) {
 	    var resultObject = result[key];
             console.log(resultObject);
-            //themes_select.append("<option value='" + resultObject.id + "'>" + resultObject.name + "</option>");
-            themes_select.append("<option value='" + resultObject + "'>" + resultObject + "</option>");
+            themes_select.append("<option value='" + resultObject.id + "'>" + resultObject.name + "</option>");
           }
         }
       },
